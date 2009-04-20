@@ -80,7 +80,7 @@ main()
 	    exit(0);
 	    break;
          default:
-	    printf("'%c' not a recognized command!\n", cmd);
+	    printf("'%s' not a recognized command!\n", cmd);
 	    break;
       }
       print_cache(cache);

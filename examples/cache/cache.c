@@ -53,10 +53,8 @@
 static char brag[] = "$$Version: cache-2.1 Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "cache.h"
-
-char *malloc();
-
 
 CACHE *cache_init(max_elements)
 int max_elements;

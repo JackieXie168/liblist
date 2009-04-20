@@ -22,6 +22,7 @@
 static char brag[] = "$$Version: stacktest-2.1 Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "../stack.h"
 
 main()

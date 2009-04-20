@@ -57,10 +57,11 @@
 static char brag[] = "$$Version: list-2.1 Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
 #include "list.h"
-
-char *malloc();
-
 
 LIST *list_init()
 {
@@ -493,8 +494,8 @@ void (*dealloc)();
       /* Apply either no deallocation function to each node, our own, or
        * a user-supplied version.
        */
-      if ((int) dealloc != LIST_NODEALLOC) {
-	 if ((int) dealloc == LIST_DEALLOC) {
+      if ((uintptr_t) dealloc != LIST_NODEALLOC) {
+	 if ((uintptr_t) dealloc == LIST_DEALLOC) {
 	    free(data);
 	 }
 	 else {

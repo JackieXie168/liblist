@@ -22,6 +22,7 @@
 static char brag[] = "$$Version: cachetest-2.1 Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "cache.h"
 
 #define MAX_ELEMENTS 3

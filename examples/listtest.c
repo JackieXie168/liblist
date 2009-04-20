@@ -22,6 +22,7 @@
 static char brag[] = "$$Version: listtest-2.1 Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "../list.h"
 
 main()
@@ -80,7 +81,7 @@ main()
 	    exit(0);
 	    break;
          default:
-	    printf("'%c' not a recognized command!\n", cmd);
+	    printf("'%s' not a recognized command!\n", cmd);
 	    break;
       }
       pval = (int *) list_curr(list);

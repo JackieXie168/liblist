@@ -21,7 +21,7 @@
 #
 #CC	= /local/bin/gcc
 #CFLAGS	= $(INCLUDES) -fstrength-reduce -finline-functions
-CFLAGS	= $(INCLUDES)
+CFLAGS	+= $(INCLUDES)
 INCLUDES= -I..
 LIBS	= -L.. -llist
 #LIBS	= -L .. -llist   # Use this for HP-UX; great loader guys!

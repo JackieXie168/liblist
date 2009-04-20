@@ -5,6 +5,8 @@ Version 2.1
 Imported into local repo for mirroring Gentoo package; this is a required
 dependency of Ferret (see http://ferret.pmel.noaa.gov/Ferret/home).
 
+Updated makefiles to remove old paths and accommodate CFLAGS.
+
 28 July 1992	Bradley C. Spatz	bcs@ufl.edu
 
 This package provides generic linked-list manipulation routines.

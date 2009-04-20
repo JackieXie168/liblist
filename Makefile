@@ -18,17 +18,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#
-#CC	= /local/bin/gcc
+
 #CFLAGS	= $(DEFINES) -fstrength-reduce -finline-functions
-CFLAGS	= $(DEFINES)
+CFLAGS	+= $(DEFINES)
 #DEFINES = -DUSE_MACROS
 LIBS	= -L. -llist
 #LIBS	= -L . -llist   # Use this for HP-UX; great loader guys!
 CPP	= cpp -E -P -C
-MANDIR	= /home/e2/tmap/local/solaris/man
-LIBDIR	= /home/e2/tmap/local/solaris/lib
-INCDIR	= /home/e2/tmap/local/solaris/include
+MANDIR	= /usr/share/man
+LIBDIR	= /usr/lib
+INCDIR	= /usr/include
 
 #add macro for ranlib 4/96 *kob* - ranlib doesn't exist on solaris
 RANLIB = ls
@@ -61,17 +60,17 @@ stack.3:	stack.man list.c Makefile
 		$(CPP) $(DEFINES) stack.man > stack.3
 
 install:
-		install -c liblist.a $(LIBDIR)
-		$(RANLIB) $(LIBDIR)/liblist.a
-		install -c list.h $(INCDIR)
-		install -c queue.h $(INCDIR)
-		install -c stack.h $(INCDIR)
+		install -c liblist.a $(DESTDIR)$(LIBDIR)
+		$(RANLIB) $(DESTDIR)$(LIBDIR)/liblist.a
+		install -c list.h $(DESTDIR)$(INCDIR)
+		install -c queue.h $(DESTDIR)$(INCDIR)
+		install -c stack.h $(DESTDIR)$(INCDIR)
 		(cd examples/cache; make install)
 
 install.man:
-		install -c list.3 $(MANDIR)/man3
-		install -c queue.3 $(MANDIR)/man3
-		install -c stack.3 $(MANDIR)/man3
+		install -c list.3 $(DESTDIR)$(MANDIR)/man3
+		install -c queue.3 $(DESTDIR)$(MANDIR)/man3
+		install -c stack.3 $(DESTDIR)$(MANDIR)/man3
 
 clean:
 		rm -f *.o *.a list.h *.3 core

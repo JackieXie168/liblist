@@ -23,11 +23,13 @@
 CFLAGS	= -I../..
 LIBS	= -L. -L../.. -lcache -llist
 #LIBS	= -L . -L ../.. -lcache -llist      # For HP-UX; great loader guys!
-MANDIR	= /home/e2/tmap/local/sun/man
-LIBDIR	= /home/e2/tmap/local/sun/lib
-INCDIR	= /home/e2/tmap/local/sun/include
+MANDIR	= /usr/share/man
+LIBDIR	= /usr/lib
+INCDIR	= /usr/include
+
 #add macro for ranlib 4/96 *kob* - ranlib doesn't exist on solaris
 RANLIB = ls
+
 cachetest:	cachetest.o libcache.a
 		$(CC) $(CFLAGS) -o cachetest cachetest.o $(LIBS)
 
@@ -38,12 +40,12 @@ libcache.a:	cache.o
 cache.o:	cache.h Makefile
 
 install:
-		install -c libcache.a $(LIBDIR)
-		ranlib $(LIBDIR)/libcache.a
-		install -c cache.h $(INCDIR)
+		install -c libcache.a $(DESTDIR)$(LIBDIR)
+		ranlib $(DESTDIR)$(LIBDIR)/libcache.a
+		install -c cache.h $(DESTDIR)$(INCDIR)
 
 install.man:
-		install -c cache.3 $(MANDIR)/man3
+		install -c cache.3 $(DESTDIR)$(MANDIR)/man3
 
 clean:
 		rm -f cachetest *.o *.a core

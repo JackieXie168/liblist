@@ -19,6 +19,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifndef _LIBLIST_QUEUE_H
+#define _LIBLIST_QUEUE_H
+
 #include <list.h>
 
 /* Present the queue datatypes in terms of list types (our point exactly). */
@@ -41,3 +44,5 @@
 /* Define the deallocation constants. */
 #define QUEUE_DEALLOC   LIST_DEALLOC
 #define QUEUE_NODEALLOC LIST_NODEALLOC
+
+#endif

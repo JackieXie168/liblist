@@ -19,6 +19,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifndef _LIBLIST_CACHE_H
+#define _LIBLIST_CACHE_H
+
 #include <list.h>
 
 typedef struct cache_t {
@@ -35,3 +38,5 @@ void cache_free();
 /* Define the deallocation constants. */
 #define CACHE_DEALLOC   LIST_DEALLOC
 #define CACHE_NODEALLOC LIST_NODEALLOC
+
+#endif

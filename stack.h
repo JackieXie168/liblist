@@ -19,6 +19,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifndef _LIBLIST_STACK_H
+#define _LIBLIST_STACK_H
+
 #include <list.h>
 
 /* Present the stack datatypes in terms of list types (our point exactly). */
@@ -41,3 +44,6 @@
 /* Define the deallocation constants. */
 #define STACK_DEALLOC   LIST_DEALLOC
 #define STACK_NODEALLOC LIST_NODEALLOC
+
+#endif
+

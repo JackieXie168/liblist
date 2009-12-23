@@ -20,6 +20,9 @@
  *
  */
 
+#ifndef _LIBLIST_LIST_H
+#define _LIBLIST_LIST_H
+
 /* Define a structure to describe the list. */
 struct list_t {
    int size;
@@ -95,4 +98,6 @@ DEFINE list_mvfront(l) ((l)->curr = (l)->front, (l))
 DEFINE list_mvrear(l)  ((l)->curr = (l)->rear, (l))
 DEFINE list_empty(l)   (((l)->front == NULL) ? TRUE : FALSE)
 DEFINE list_size(l)    ((l)->size)
+#endif
+
 #endif

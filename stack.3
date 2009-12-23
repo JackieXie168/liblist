@@ -21,17 +21,17 @@ cc [
 STACK *stack_init()
 .PP
 .ft B
-char *stack_push(stack, data, bytes)
+void *stack_push(stack, data, bytes)
     STACK *stack;
-    char *data;
+    void *data;
     int bytes;
 .PP
 .ft B
-char *stack_pop(stack)
+void *stack_pop(stack)
     STACK *stack;
 .PP
 .ft B
-char *stack_top(stack)
+void *stack_top(stack)
     STACK *stack;
 .PP
 .ft B
@@ -147,7 +147,7 @@ for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
 void dealloc(data)
-   char *data;
+   void *data;
 .RE
 .PP
 and will be sent the data element reference of each element in the stack

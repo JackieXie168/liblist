@@ -32,8 +32,6 @@
  *    int list_traverse(list, data, func, opts);
  *    void list_free(list, dealloc)
  *
- * and the following here or in list.h if USE_MACROS defined for compilation.
- *
  *    char *list_front(list)
  *    char *list_curr(list)
  *    char *list_rear(list)
@@ -107,15 +105,6 @@ LIST *list;
 }
 
 
-/* The following are definitions of these routines as functions.  We can
- * force thse to be implemented as macros by compiling with -DUSE_MACROS.
- * The macros are defined in the header file(s).  The macros afford better
- * performance, and if users know the routines are implemented as such,
- * they can always wrap their own functions aroud the macros if they need
- * function semantics (i.e. using the routines as pointers, as in passing
- * the routines as parameters to other functions.
- */
-#ifndef USE_MACROS
 LIST *list_mvfront(list)
 LIST *list;
 {
@@ -168,7 +157,6 @@ LIST *list;
 {
    return(list->size);
 }
-#endif
 
 
 static LIST_ELEMENT *list_create_element(data, bytes)

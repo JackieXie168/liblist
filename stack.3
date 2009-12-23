@@ -88,25 +88,16 @@ and returns a pointer to the removed data.
 returns a pointer to the element at the top of
 .IR stack ,
 but does not remove the element. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR stack_size
 returns the number of elements on
 .IR stack
 as an integer. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR stack_empty
 returns 1 (TRUE) if
 .IR stack
 is empty, 0 (FALSE) otherwise. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR stack_free
 deallocates

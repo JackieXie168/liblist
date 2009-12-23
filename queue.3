@@ -88,25 +88,16 @@ and returns a pointer to the removed data.
 returns a pointer to the element at the front of
 .IR q ,
 but does not remove the element. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR q_size
 returns the number of elements in
 .IR q
 as an integer. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR q_empty
 returns 1 (TRUE) if
 .IR q
 is empty, 0 (FALSE) otherwise. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR q_free
 deallocates

@@ -122,9 +122,6 @@ and
 .IR list_rear 
 return pointers to the front, current, or rear element in
 .IR list . \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR list_insert_before
 and
@@ -161,17 +158,11 @@ remove).
 returns the size (or number of elements) of
 .IR list
 as an integer. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR list_empty
 returns 1 (TRUE) if
 .IR list
 is empty, 0 (FALSE) otherwise. \c
-#ifdef USE_MACROS
-This routine is implemented as a macro. \c
-#endif
 .PP
 .IR list_traverse
 traverses

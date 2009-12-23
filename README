@@ -34,6 +34,7 @@ can be compiled without installing (see above) the library.
 By default, some of the routines are implemented as macros.  You can
 override this by commenting out the -DUSE_MACROS from the Makefile and
 recompiling.  Note that this #define also updates the man pages.
+ --edit by ohnobinki: USE_MACROS has been weeded out of this package
 
 I have tested this package on Sun3, Sun4, DecStation 5000, PC/RT, HP
 9000-400, and Sony(68030, News 3.3) architectures, and it performs

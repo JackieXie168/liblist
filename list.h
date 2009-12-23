@@ -52,52 +52,36 @@ char *list_remove_front();
 char *list_remove_rear();
 char *list_remove_curr();
 void list_free();
-#define DEFINE #define
+
 /* Define some constants for controlling list traversals.  We
  * bit-code the attributes so they can be OR'd together.
  */
-DEFINE LIST_FORW	0
-DEFINE LIST_BACK	2
-DEFINE LIST_FRNT	4
-DEFINE LIST_CURR	8
-DEFINE LIST_REAR	18   /* 16 + 2, since REAR implies BACKwards. */
-DEFINE LIST_SAVE	32
-DEFINE LIST_ALTR	64
+#define LIST_FORW	0
+#define LIST_BACK	2
+#define LIST_FRNT	4
+#define LIST_CURR	8
+#define LIST_REAR	18   /* 16 + 2, since REAR implies BACKwards. */
+#define LIST_SAVE	32
+#define LIST_ALTR	64
 
 /* Define some constants for return codes and such. */
-#define IFNDEF #ifndef
-#define ENDIF #endif
-IFNDEF TRUE
-DEFINE TRUE  1
-ENDIF
-IFNDEF FALSE
-DEFINE FALSE 0
-ENDIF
-DEFINE LIST_DEALLOC   -1
-DEFINE LIST_NODEALLOC -2
-DEFINE LIST_EMPTY     0
-DEFINE LIST_OK        1
-DEFINE LIST_EXTENT    2
+#ifndef TRUE
+#define TRUE  1
+#endif
+#ifndef FALSE
+#define FALSE 0
+#endif
+#define LIST_DEALLOC   -1
+#define LIST_NODEALLOC -2
+#define LIST_EMPTY     0
+#define LIST_OK        1
+#define LIST_EXTENT    2
 
-#ifndef USE_MACROS
 /* Yet more prototypes. */
 char *list_front();
 char *list_curr();
 char *list_rear();
 LIST *list_mvfront();
 LIST *list_mvrear();
-#endif
-
-#ifdef USE_MACROS
-#define DEFINE #define
-/* Define some macros for performance. */
-DEFINE list_front(l)   (((l)->front == NULL) ? NULL : ((l)->front->data))
-DEFINE list_curr(l)    (((l)->curr == NULL) ? NULL : ((l)->curr->data))
-DEFINE list_rear(l)    (((l)->rear == NULL) ? NULL : ((l)->rear->data))
-DEFINE list_mvfront(l) ((l)->curr = (l)->front, (l))
-DEFINE list_mvrear(l)  ((l)->curr = (l)->rear, (l))
-DEFINE list_empty(l)   (((l)->front == NULL) ? TRUE : FALSE)
-DEFINE list_size(l)    ((l)->size)
-#endif
 
 #endif

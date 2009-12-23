@@ -42,16 +42,19 @@ struct list_element_t {
 typedef struct list_t LIST;
 typedef struct list_element_t LIST_ELEMENT;
 
+typedef int (*list_traverse_func_t)(void *data, void *node_data);
+typedef void (*list_dealloc_func_t)(void *);
+
 /* Prototype ahoy! */
 LIST *list_init();
-LIST *list_mvprev();
-LIST *list_mvnext();
-char *list_insert_before();
-char *list_insert_after();
-char *list_remove_front();
-char *list_remove_rear();
-char *list_remove_curr();
-void list_free();
+LIST *list_mvprev(LIST *);
+LIST *list_mvnext(LIST *);
+void *list_insert_before(LIST *, void *data, int len);
+void *list_insert_after(LIST *, void *data, int len);
+void *list_remove_front(LIST *);
+void *list_remove_rear(LIST *);
+void *list_remove_curr(LIST *);
+void list_free(LIST *, list_dealloc_func_t);
 
 /* Define some constants for controlling list traversals.  We
  * bit-code the attributes so they can be OR'd together.
@@ -78,10 +81,15 @@ void list_free();
 #define LIST_EXTENT    2
 
 /* Yet more prototypes. */
-char *list_front();
-char *list_curr();
-char *list_rear();
-LIST *list_mvfront();
-LIST *list_mvrear();
+char *list_front(LIST *);
+char *list_curr(LIST *);
+char *list_rear(LIST *);
+LIST *list_mvfront(LIST *);
+LIST *list_mvrear(LIST *);
+
+int list_empty(LIST *);
+int list_size(LIST *);
+
+int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
 
 #endif

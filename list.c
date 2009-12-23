@@ -75,8 +75,7 @@ LIST *list_init()
 }
 
 
-LIST *list_mvprev(list)
-LIST *list;
+LIST *list_mvprev(LIST *list)
 {
    /* Move to the previous link, if possible.  Note that the following
     * compound conditional expression *requires* a short-circuit evaluation.
@@ -90,8 +89,7 @@ LIST *list;
 }
 
 
-LIST *list_mvnext(list)
-LIST *list;
+LIST *list_mvnext(LIST *list)
 {
    /* Move to the next link, if possible.  Note that the following
     * compound conditional expression *requires* a short-circuit evaluation.
@@ -105,8 +103,7 @@ LIST *list;
 }
 
 
-LIST *list_mvfront(list)
-LIST *list;
+LIST *list_mvfront(LIST *list)
 {
    /* Move to the front of the list.*/
    list->curr = list->front;
@@ -114,8 +111,7 @@ LIST *list;
 }
 
 
-LIST *list_mvrear(list)
-LIST *list;
+LIST *list_mvrear(LIST *list)
 {
    /* Move to the front of the list.*/
    list->curr = list->rear;
@@ -123,45 +119,38 @@ LIST *list;
 }
 
 
-int list_empty(list)
-LIST *list;
+int list_empty(LIST *list)
 {
    /* Return 1 if the list is empty.  0 otherwise. */
    return((list->front == NULL) ? TRUE : FALSE);
 }
 
 
-char *list_front(list)
-LIST *list;
+char *list_front(LIST *list)
 {
    return((list->front == NULL) ? NULL : (list->front->data));
 }
 
 
-char *list_curr(list)
-LIST *list;
+char *list_curr(LIST *list)
 {
    return((list->curr == NULL) ? NULL : (list->curr->data));
 }
 
 
-char *list_rear(list)
-LIST *list;
+char *list_rear(LIST *list)
 {
    return((list->rear == NULL) ? NULL : (list->rear->data));
 }
 
 
-int list_size(list)
-LIST *list;
+int list_size(LIST *list)
 {
    return(list->size);
 }
 
 
-static LIST_ELEMENT *list_create_element(data, bytes)
-char *data;
-int bytes;
+static LIST_ELEMENT *list_create_element(void *data, int bytes)
 {
    LIST_ELEMENT *new;
 
@@ -191,10 +180,7 @@ int bytes;
 }
 
 
-char *list_insert_before(list, data, bytes)
-LIST *list;
-char *data;
-int bytes;
+void *list_insert_before(LIST *list, void *data, int bytes)
 {
    LIST_ELEMENT *new;
 
@@ -235,10 +221,7 @@ int bytes;
 }
 
 
-char *list_insert_after(list, data, bytes)
-LIST *list;
-char *data;
-int bytes;
+void *list_insert_after(LIST *list, void *data, int bytes)
 {
    LIST_ELEMENT *new;
 
@@ -279,8 +262,7 @@ int bytes;
 }
 
 
-static char *list_remove_single(list)
-LIST *list;
+static void *list_remove_single(LIST *list)
 {
    char *data;
 
@@ -293,8 +275,7 @@ LIST *list;
 }
 
 
-char *list_remove_front(list)
-LIST *list;
+void *list_remove_front(LIST *list)
 {
    LIST_ELEMENT *temp;
    char *data;
@@ -328,8 +309,7 @@ LIST *list;
 }
 
 
-char *list_remove_rear(list)
-LIST *list;
+void *list_remove_rear(LIST *list)
 {
    LIST_ELEMENT *temp;
    char *data;
@@ -363,8 +343,7 @@ LIST *list;
 }
 
 
-char *list_remove_curr(list)
-LIST *list;
+void *list_remove_curr(LIST *list)
 {
    LIST_ELEMENT *temp;
    char *data;
@@ -405,11 +384,7 @@ LIST *list;
 }
 
 
-int list_traverse(list, data, func, opts)
-LIST *list;
-char *data;
-int (*func)();
-int opts;
+int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts)
 {
    LIST_ELEMENT *lp;
    int status, rc;
@@ -465,9 +440,7 @@ int opts;
 }
 
 
-void list_free(list, dealloc)
-LIST *list;
-void (*dealloc)();
+void list_free(LIST *list, list_dealloc_func_t dealloc)
 {
    char *data;
 

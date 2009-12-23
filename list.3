@@ -37,39 +37,39 @@ LIST *list_mvrear(list)
     LIST *list;
 .PP
 .ft B
-char *list_front(list)
+void *list_front(list)
     LIST *list;
 .PP
 .ft B
-char *list_curr(list)
+void *list_curr(list)
     LIST *list;
 .PP
 .ft B
-char *list_rear(list)
+void *list_rear(list)
     LIST *list;
 .PP
 .ft B
-char *list_insert_before(list, data, bytes)
+void *list_insert_before(list, data, bytes)
     LIST *list;
-    char *data;
+    void *data;
     int bytes;
 .PP
 .ft B
-char *list_insert_after(list, data, bytes)
+void *list_insert_after(list, data, bytes)
     LIST *list;
-    char *data;
+    void *data;
     int bytes;
 .PP
 .ft B
-char *list_remove_front(list)
+void *list_remove_front(list)
     LIST *list;
 .PP
 .ft B
-char *list_remove_curr(list)
+void *list_remove_curr(list)
     LIST *list;
 .PP
 .ft B
-char *list_remove_rear(list)
+void *list_remove_rear(list)
     LIST *list;
 .PP
 .ft B
@@ -83,7 +83,7 @@ int list_empty(list)
 .ft B
 int list_traverse(list, data, func, opts)
     LIST *list;
-    char *data;
+    void *data;
     int (*func)();
     int opts;
 .PP
@@ -207,8 +207,8 @@ should be declared as follows:
 .PP
 .RS
 int func(data, curr)
-    char *data;
-    char *curr;
+    void *data;
+    void *curr;
 .RE
 .PP
 and should return 1 (TRUE) if the traversal should continue, or 0 (FALSE)
@@ -237,8 +237,8 @@ the contents of a list of names could be printed.
 .RS
 .nf
 int func(data, curr)
-    char *data;
-    char *curr;
+    void *data;
+    struct mystruct *curr;
 {
     printf("Name=%30s.\\n", curr->name);
     return(TRUE);
@@ -254,8 +254,8 @@ like
 .RS
 .nf
 int func(data, curr)
-    char *data;
-    char *curr;
+    void *data;
+    void *curr;
 {
     if (strcmp(data, curr))
        return(TRUE);
@@ -353,7 +353,7 @@ for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
 void dealloc(data)
-   char *data;
+   void *data;
 .RE
 .PP
 and will be sent the data element reference of each element in the list

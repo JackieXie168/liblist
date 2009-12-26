@@ -1,4 +1,12 @@
-Version 2.1
+Version 2.2
+26 December 2009	Nathan Phillip Brink	ohnobinki@ohnopublishing.net
+
+http://ohnopub.net/liblist
+
+See NEWS. A publicly-accessible Mercurial repository is available at
+http://ohnopub.net/hg/liblist-unbased . Hopefully, I will someday be
+able to extract the revisions from nerdboy's SVN repo. If that happens,
+the new repository URL will be http://ohnopub.net/hg/liblist.
 
 19 April 2009	Stephen L. Arnold	nerdboy@gentoo.org
 

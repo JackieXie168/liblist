@@ -57,7 +57,7 @@ paper.dvi: paper/paper.tex list.0 paper.toc
 	latex $<
 
 #we need two passes to get the TOC; otherwise, TOC is empty
-paper.toc: paper/paper.tex
+paper.toc: paper/paper.tex list.0
 	latex $<
 
 list.mp: paper/list.fig

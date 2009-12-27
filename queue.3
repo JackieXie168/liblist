@@ -14,38 +14,28 @@ cc [
 ]
 .nf
 .PP
-.ft B
-\#include <queue.h>
+\fB#include <queue.h>
 .PP
 .ft B
 QUEUE *q_init()
 .PP
 .ft B
-void *q_enqueue(q, data, bytes)
-    QUEUE *q;
-    void *data;
-    int bytes;
+void *q_enqueue(QUEUE *q, void *data, int bytes);
 .PP
 .ft B
-void *q_dequeue(q)
-    QUEUE *q;
+void *q_dequeue(QUEUE *q);
 .PP
 .ft B
-void *q_front(q)
-    QUEUE *q;
+void *q_front(QUEUE *q);
 .PP
 .ft B
-int q_size(q)
-    QUEUE *q;
+int q_size(QUEUE *q);
 .PP
 .ft B
-int q_empty(q)
-    QUEUE *q;
+int q_empty(QUEUE *q);
 .PP
 .ft B
-void q_free(q, dealloc)
-    QUEUE *q;
-    void (*dealloc)();
+void q_free(QUEUE *q, list_dealloc_func_t dealloc);
 .SH DESCRIPTION
 These routines provide generic queue manipulation of (potentially)
 multiple queues.  Each queue can hold arbitrarily sized elements, with
@@ -146,8 +136,7 @@ as well.  A user-supplied deallocation function should be passed to
 for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
-void dealloc(data)
-   void *data;
+void dealloc(void *data);
 .RE
 .PP
 and will be sent the data element reference of each element in the queue

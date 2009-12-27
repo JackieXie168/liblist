@@ -9,4 +9,6 @@ submit them.
 
 My motivation is ``distren'', a personal project, for which I would like to utilize
 a generic linked-list library. I am somewhat against reinventing the wheel ;-).
+
+Thus, I bring forth liblist-2.2 (see ChangeLog)
 	-- ohnobinki

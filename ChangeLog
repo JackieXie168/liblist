@@ -1,0 +1,9 @@
+2009-12-26  Nathan Phillip Brink  <ohnobinki@ohnopublishing.net>
+
+	* liblist-2.2:
+	- Modernized function prototypes in the four manpages, header files, and source files.
+	- Added autotools buildsystem to install essential library components; libtool = dynamic lib support.
+	- pkg-config support.
+	- #ifndef #define #endif wrapper for public header files.
+	- Disable macro implementations of functions.
+

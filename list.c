@@ -126,19 +126,19 @@ int list_empty(LIST *list)
 }
 
 
-char *list_front(LIST *list)
+void *list_front(LIST *list)
 {
    return((list->front == NULL) ? NULL : (list->front->data));
 }
 
 
-char *list_curr(LIST *list)
+void *list_curr(LIST *list)
 {
    return((list->curr == NULL) ? NULL : (list->curr->data));
 }
 
 
-char *list_rear(LIST *list)
+void *list_rear(LIST *list)
 {
    return((list->rear == NULL) ? NULL : (list->rear->data));
 }

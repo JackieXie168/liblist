@@ -81,9 +81,9 @@ void list_free(LIST *, list_dealloc_func_t);
 #define LIST_EXTENT    2
 
 /* Yet more prototypes. */
-char *list_front(LIST *);
-char *list_curr(LIST *);
-char *list_rear(LIST *);
+void *list_front(LIST *);
+void *list_curr(LIST *);
+void *list_rear(LIST *);
 LIST *list_mvfront(LIST *);
 LIST *list_mvrear(LIST *);
 

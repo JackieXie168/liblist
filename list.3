@@ -15,82 +15,64 @@ cc [
 .nf
 .PP
 .ft B
-\#include <list.h>
+\fB#include <list.h>
 .PP
 .ft B
-LIST *list_init()
+LIST *list_init();
 .PP
 .ft B
-LIST *list_mvprev(list)
-    LIST *list;
+LIST *list_mvprev(LIST *list);
 .PP
 .ft B
-LIST *list_mvnext(list)
-    LIST *list;
+LIST *list_mvnext(LIST *list);
 .PP
 .ft B
-LIST *list_mvfront(list)
-    LIST *list;
+LIST *list_mvfront(LIST *list);
 .PP
 .ft B
-LIST *list_mvrear(list)
-    LIST *list;
+LIST *list_mvrear(LIST *list);
 .PP
 .ft B
-void *list_front(list)
-    LIST *list;
+void *list_front(LIST *list);
 .PP
 .ft B
-void *list_curr(list)
-    LIST *list;
+void *list_curr(LIST *list);
 .PP
 .ft B
-void *list_rear(list)
-    LIST *list;
+void *list_rear(LIST *list);
 .PP
 .ft B
-void *list_insert_before(list, data, bytes)
-    LIST *list;
-    void *data;
-    int bytes;
+void *list_insert_before(LIST *list, void *data, int bytes);
 .PP
 .ft B
-void *list_insert_after(list, data, bytes)
-    LIST *list;
-    void *data;
-    int bytes;
+void *list_insert_after(LIST *list, void *data, int bytes);
 .PP
 .ft B
-void *list_remove_front(list)
-    LIST *list;
+void *list_remove_front(LIST *list);
 .PP
 .ft B
-void *list_remove_curr(list)
-    LIST *list;
+void *list_remove_curr(LIST *list);
 .PP
 .ft B
-void *list_remove_rear(list)
-    LIST *list;
+void *list_remove_rear(LIST *list);
 .PP
 .ft B
-int list_size(list)
-    LIST *list;
+int list_size(LIST *list);
 .PP
 .ft B
-int list_empty(list)
-    LIST *list;
+int list_empty(LIST *list);
 .PP
 .ft B
-int list_traverse(list, data, func, opts)
-    LIST *list;
-    void *data;
-    int (*func)();
-    int opts;
+typedef int (*list_traverse_func_t)(void *data, void *node_data);
 .PP
 .ft B
-void list_free(list, dealloc)
-    LIST *list;
-    void (*dealloc)();
+int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
+.PP
+.ft B
+typedef void (*list_dealloc_func_t)(void *);
+.PP
+.ft B
+void list_free(LIST *list, list_dealloc_func_t dealloc);
 .PP
 .SH DESCRIPTION
 These routines provide generic manipulation of (potentially)
@@ -206,9 +188,7 @@ parameter.
 should be declared as follows:
 .PP
 .RS
-int func(data, curr)
-    void *data;
-    void *curr;
+int func(void *data, void *curr);
 .RE
 .PP
 and should return 1 (TRUE) if the traversal should continue, or 0 (FALSE)
@@ -236,12 +216,15 @@ the contents of a list of names could be printed.
 .PP
 .RS
 .nf
-int func(data, curr)
-    void *data;
-    struct mystruct *curr;
+struct mystruct
+{
+    char *name;
+};
+
+int func(void *data, struct mystruct *curr)
 {
     printf("Name=%30s.\\n", curr->name);
-    return(TRUE);
+    return TRUE;
 }
 .fi
 .RE
@@ -253,14 +236,12 @@ like
 .PP
 .RS
 .nf
-int func(data, curr)
-    void *data;
-    void *curr;
+int func(void *data, void *curr)
 {
     if (strcmp(data, curr))
-       return(TRUE);
+       return TRUE;
     else
-       return(FALSE);
+       return FALSE;
 }
 .fi
 .RE
@@ -352,8 +333,7 @@ as well.  A user-supplied deallocation function should be passed to
 for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
-void dealloc(data)
-   void *data;
+void dealloc(void *data)
 .RE
 .PP
 and will be sent the data element reference of each element in the list

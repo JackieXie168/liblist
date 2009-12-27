@@ -52,7 +52,7 @@
  *       char *data;
  */
 
-static char brag[] = "$$Version: list-2.1 Copyright (C) 1992 Bradley C. Spatz";
+static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
 #include <stdlib.h>

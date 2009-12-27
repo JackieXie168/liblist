@@ -19,7 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-static char brag[] = "$$Version: cachetest-2.1 Copyright (C) 1992 Bradley C. Spatz";
+static char brag[] = "$$Version: cachetest " PACKAGE_VERSION " Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
 #include <stdlib.h>

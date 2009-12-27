@@ -50,7 +50,7 @@
  * cache elements.  This limit will be determined at cache creation.
  */
 
-static char brag[] = "$$Version: cache-2.1 Copyright (C) 1992 Bradley C. Spatz";
+static char brag[] = "$$Version: cache " PACKAGE_VERSION " Copyright (C) 1992 Bradley C. Spatz";
 
 #include <stdio.h>
 #include <stdlib.h>

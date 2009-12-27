@@ -32,5 +32,6 @@ AC_ARG_ENABLE([docs],
 	[enable_docs=no])
 AM_CONDITIONAL([DOCS], [test "x$enable_docs" = "xyes"])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+liblist.pc])
 AC_OUTPUT

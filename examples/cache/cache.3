@@ -18,26 +18,16 @@ cc [
 \#include <cache.h>
 .PP
 .ft B
-CACHE *cache_init(max_elements)
-   int max_elements;
+CACHE *cache_init(int max_elements)
 .PP
 .ft B
-char *cache_enter(cache, data, bytes, removed)
-    CACHE *cache;
-    char *data;
-    int bytes;
-    char **removed;
+void *cache_enter(CACHE *cache, void *data, int bytes, void **removed)
 .PP
 .ft B
-char *cache_check(cache, data, match)
-    CACHE *cache;
-    char *data;
-    int (*match)();
+void *cache_check(CACHE *cache, void *data, cache_match_func_t match)
 .PP
 .ft B
-void cache_free(cache, dealloc)
-    CACHE *cache;
-    void (*dealloc)();
+void cache_free(CACHE *cache, cache_dealloc_func_t dealloc)
 .SH DESCRIPTION
 These routines provide generic cache manipulation of (potentially)
 multiple caches.  Each cache can hold arbitrarily sized elements, with
@@ -91,9 +81,9 @@ determines whether an element is found or not.  This function should be
 declared as
 .PP
 .RS
-int match(data, curr)
-    char *data;
-    char *curr;
+typedef list_dealloc_func_t cache_traverse_func_t;
+.br
+typedef int (*list_traverse_func_t)(void *data, void *curr);
 .RE
 .PP
 and should return FALSE (0) if a match occurs between the data to be checked
@@ -147,8 +137,9 @@ as well.  A user-supplied deallocation function should be passed to
 for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
-void dealloc(data)
-   char *data;
+typedef list_dealloc_func_t cache_calloc_func_t;
+.br
+typedef void (*list_dealloc_func_t)(void *data);
 .RE
 .PP
 and will be sent the data element reference of each element in the cache

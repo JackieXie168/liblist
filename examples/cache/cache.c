@@ -56,8 +56,7 @@ static char brag[] = "$$Version: cache " PACKAGE_VERSION " Copyright (C) 1992 Br
 #include <stdlib.h>
 #include "cache.h"
 
-CACHE *cache_init(max_elements)
-int max_elements;
+CACHE *cache_init(int max_elements)
 {
    CACHE *new_cache;
 
@@ -78,11 +77,7 @@ int max_elements;
 }
 
 
-char *cache_enter(cache, data, bytes, removed)
-CACHE *cache;
-char *data;
-int bytes;
-char **removed;
+void *cache_enter(CACHE *cache, void *data, int bytes, void **removed)
 {
    char *new_element;
 
@@ -106,10 +101,7 @@ char **removed;
 }
 
 
-char *cache_check(cache, data, match)
-CACHE *cache;
-char *data;
-int (*match)();
+void *cache_check(CACHE *cache, void *data, cache_match_func_t match)
 {
    char *found;
 
@@ -146,9 +138,7 @@ int (*match)();
 }
 
 
-void cache_free(cache, dealloc)
-CACHE *cache;
-void (*dealloc)();
+void cache_free(CACHE *cache, cache_dealloc_func_t dealloc)
 {
    /* First free up the list, and then the cache descriptor. */
    list_free(cache->list, dealloc);

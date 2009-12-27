@@ -29,11 +29,14 @@ typedef struct cache_t {
    LIST *list;
 } CACHE;
 
+typedef list_traverse_func_t cache_match_func_t;
+typedef list_dealloc_func_t cache_dealloc_func_t;
+
 /* Provide some useful prototypes. */
-CACHE *cache_init();
-char *cache_enter();
-char *cache_check();
-void cache_free();
+CACHE *cache_init(int max_size);
+void *cache_enter(CACHE *cache, void *data, int bytes, void **removed);
+void *cache_check(CACHE *cache, void *data, cache_match_func_t match);
+void cache_free(CACHE *cache, cache_dealloc_func_t dealloc);
 
 /* Define the deallocation constants. */
 #define CACHE_DEALLOC   LIST_DEALLOC

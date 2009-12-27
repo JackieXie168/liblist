@@ -4,8 +4,6 @@
 cache_init,cache_enter, cache_check, cache_free,  \-- generic list-based cache routines
 .SH SYNOPSIS
 .PP
-\fB#include <string.h>
-.br
 cc [
 .I flags 
 ]
@@ -16,8 +14,8 @@ cc [
 ]
 .nf
 .PP
-.ft B
-\#include <cache.h>
+\fB#include <cache.h>
+.br
 .PP
 .ft B
 CACHE *cache_init(int max_elements)

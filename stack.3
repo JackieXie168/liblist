@@ -14,38 +14,28 @@ cc [
 ]
 .nf
 .PP
-.ft B
-\#include <stack.h>
+\fB#include <stack.h>
 .PP
 .ft B
 STACK *stack_init()
 .PP
 .ft B
-void *stack_push(stack, data, bytes)
-    STACK *stack;
-    void *data;
-    int bytes;
+void *stack_push(STACK *stack, void *data, int bytes);
 .PP
 .ft B
-void *stack_pop(stack)
-    STACK *stack;
+void *stack_pop(STACK *stack);
 .PP
 .ft B
-void *stack_top(stack)
-    STACK *stack;
+void *stack_top(STACK *stack);
 .PP
 .ft B
-int stack_size(stack)
-    STACK *stack;
+int stack_size(STACK *stack);
 .PP
 .ft B
-int stack_empty(stack)
-    STACK *stack;
+int stack_empty(STACK *stack);
 .PP
 .ft B
-void stack_free(stack, dealloc)
-    STACK *stack;
-    void (*dealloc)();
+void stack_free(STACK *stack, list_dealloc_func_t dealloc);
 .SH DESCRIPTION
 These routines provide generic stack manipulation of (potentially)
 multiple stacks.  Each stack can hold arbitrarily sized elements, with
@@ -146,8 +136,7 @@ as well.  A user-supplied deallocation function should be passed to
 for this purpose.  The deallocation function should be declared as:
 .PP
 .RS
-void dealloc(data)
-   void *data;
+void dealloc(void *data);
 .RE
 .PP
 and will be sent the data element reference of each element in the stack

@@ -41,7 +41,11 @@ EXTRA_DIST = examples/Makefile \
 	paper/performance/Makefile \
 	paper/performance/allocperf.c \
 	paper/performance/stackperf.c \
-	paper/performance/travperf.c
+	paper/performance/travperf.c \
+	liblist.pc.in
+
+pkgconfigdir = @libdir@/pkgconfig
+pkgconfig_DATA = liblist.pc
 
 doc_DATA =
 if DOCS

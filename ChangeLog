@@ -1,6 +1,6 @@
 2009-12-29  Nathan Phillip Brink  <ohnobinki@gmail.com>
 
-	* Makefile.am:
+	* liblist-2.2.1:
 	- Fixed parallel build issue with LaTeX (to please flameeyes ;-) ).
 	- Prefixed manpages with `l' to avoid collisions with system manpages.
 

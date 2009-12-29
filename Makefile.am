@@ -12,12 +12,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-dist_man3_MANS = list.3 queue.3 stack.3
+dist_man3_MANS = man/llist.3 \
+	man/lqueue.3 \
+	man/lstack.3
 include_HEADERS = list.h queue.h stack.h
 lib_LTLIBRARIES = liblist.la
 
 if EXAMPLES
-dist_man3_MANS += examples/cache/cache.3
+dist_man3_MANS += examples/cache/lcache.3
 include_HEADERS += examples/cache/cache.h
 lib_LTLIBRARIES += libcache.la
 endif

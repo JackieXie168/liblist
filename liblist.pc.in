@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: liblist
+Name: @PACKAGE_NAME@
 Description: A generic list package for C
-Version: 2.2
-URL: http://ohnopub.net/liblist
+Version: @VERSION@
+URL: @PACKAGE_BUGREPORT@
 Libs: -L${libdir} -llist
 Cflags: -I${includedir}

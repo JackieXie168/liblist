@@ -1,3 +1,9 @@
+2009-12-29  Nathan Phillip Brink  <ohnobinki@gmail.com>
+
+	* Makefile.am:
+	- Fixed parallel build issue with LaTeX (to please flameeyes ;-) ).
+	- Prefixed manpages with `l' to avoid collisions with system manpages.
+
 2009-12-26  Nathan Phillip Brink  <ohnobinki@ohnopublishing.net>
 
 	* liblist-2.2:

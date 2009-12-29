@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([liblist], [2.2], [http://ohnopub.net/liblist])
+AC_INIT([liblist], [2.2.1], [http://ohnopub.net/liblist])
 AC_CONFIG_SRCDIR([list.c])
 
 AM_INIT_AUTOMAKE

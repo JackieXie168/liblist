@@ -25,6 +25,7 @@ lib_LTLIBRARIES += libcache.la
 endif
 
 liblist_la_SOURCES = list.c
+liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 1:0:0
 
 libcache_la_SOURCES = examples/cache/cache.c
 

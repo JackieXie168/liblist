@@ -450,20 +450,18 @@ void list_free(LIST *list, list_dealloc_func_t dealloc)
     * elements, free the list descriptor.
     */
    list_mvfront(list);
-   while (! list_empty(list)) {
-      data = list_remove_front(list);
-      /* Apply either no deallocation function to each node, our own, or
-       * a user-supplied version.
-       */
-      if ((uintptr_t) dealloc != LIST_NODEALLOC) {
-	 if ((uintptr_t) dealloc == LIST_DEALLOC) {
-	    free(data);
-	 }
-	 else {
-	    (*dealloc)(data);
-	 }
-      }
-   }
+   while (! list_empty(list))
+     {
+       data = list_remove_front(list);
+
+       if(dealloc)
+	 (*dealloc)(data);
+     }
 
    free(list);
+}
+
+void list_free_free(void *data)
+{
+  free(data);
 }

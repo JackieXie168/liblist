@@ -45,6 +45,11 @@ typedef struct list_element_t LIST_ELEMENT;
 typedef int (*list_traverse_func_t)(void *data, void *node_data);
 typedef void (*list_dealloc_func_t)(void *);
 
+/**
+   A default data-freeing function for the LIST_DEALLOC.
+ */
+void list_free_free(void *);
+
 /* Prototype ahoy! */
 LIST *list_init();
 LIST *list_mvprev(LIST *);
@@ -63,7 +68,7 @@ void list_free(LIST *, list_dealloc_func_t);
 #define LIST_BACK	2
 #define LIST_FRNT	4
 #define LIST_CURR	8
-#define LIST_REAR	18   /* 16 + 2, since REAR implies BACKwards. */
+#define LIST_REAR	(16 | LIST_BACK)   /* 16 + 2, since REAR implies BACKwards. */
 #define LIST_SAVE	32
 #define LIST_ALTR	64
 
@@ -74,8 +79,8 @@ void list_free(LIST *, list_dealloc_func_t);
 #ifndef FALSE
 #define FALSE 0
 #endif
-#define LIST_DEALLOC   -1
-#define LIST_NODEALLOC -2
+#define LIST_DEALLOC   (&list_free_free)
+#define LIST_NODEALLOC (list_dealloc_func_t)NULL
 #define LIST_EMPTY     0
 #define LIST_OK        1
 #define LIST_EXTENT    2

@@ -15,9 +15,9 @@
 AC_INIT([liblist], [2.2.1], [http://ohnopub.net/liblist])
 AC_CONFIG_SRCDIR([list.c])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])
 
-AC_PROG_CC
+AC_PROG_CC_C_O
 AC_PROG_LIBTOOL
 
 AC_ARG_ENABLE([examples],

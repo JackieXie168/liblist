@@ -28,6 +28,15 @@ liblist_la_SOURCES = list.c
 liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 1:0:0
 
 libcache_la_SOURCES = examples/cache/cache.c
+libcache_la_LIBADD = liblist.la
+
+#
+# tests
+#
+TESTS = tests/basic
+check_PROGRAMS = $(TESTS)
+
+tests_basic_LDADD = liblist.la
 
 # misc files to throw into the tarball.
 # the examples/*test.c files are just interactive prompt-driven

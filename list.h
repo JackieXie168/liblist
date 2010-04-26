@@ -1,6 +1,7 @@
 /* list.h -- data structures and such for generic list package
  * 
  * Last edited: Tue Jul 28 15:29:56 1992 by bcs (Bradley C. Spatz) on wasp
+ * Updated by Nathan Phillip Brink 2010
  *
  * Copyright (C) 1992, Bradley C. Spatz, bcs@ufl.edu
  *
@@ -24,23 +25,21 @@
 #define _LIBLIST_LIST_H
 
 /* Define a structure to describe the list. */
-struct list_t {
-   int size;
-   struct list_element_t *front;
-   struct list_element_t *rear;
-   struct list_element_t *curr;
-};
+struct list;
+typedef struct list *list_t;
 
 /* Define a structure to describe each element in the list. */
-struct list_element_t {
-   struct list_element_t *prev;
-   struct list_element_t *next;
-   char *data;
-};
+struct list_element;
+typedef struct list_element *list_element_t;
 
-/* Structs are ugly, so... */
-typedef struct list_t LIST;
-typedef struct list_element_t LIST_ELEMENT;
+/*
+  Backwards API compatibility plug.
+  We're willing to make the API as backwards-compatible as possible
+  but we are going to enforce opaque handles, eliminating the macros
+  instead of functions option.
+ */
+#define LIST_ELEMENT struct list_element
+#define LIST struct list
 
 typedef int (*list_traverse_func_t)(void *data, void *node_data);
 typedef void (*list_dealloc_func_t)(void *);
@@ -51,15 +50,15 @@ typedef void (*list_dealloc_func_t)(void *);
 void list_free_free(void *);
 
 /* Prototype ahoy! */
-LIST *list_init();
-LIST *list_mvprev(LIST *);
-LIST *list_mvnext(LIST *);
-void *list_insert_before(LIST *, void *data, int len);
-void *list_insert_after(LIST *, void *data, int len);
-void *list_remove_front(LIST *);
-void *list_remove_rear(LIST *);
-void *list_remove_curr(LIST *);
-void list_free(LIST *, list_dealloc_func_t);
+list_t list_init();
+list_t list_mvprev(list_t);
+list_t list_mvnext(list_t);
+void *list_insert_before(list_t, void *data, int len);
+void *list_insert_after(list_t, void *data, int len);
+void *list_remove_front(list_t);
+void *list_remove_rear(list_t);
+void *list_remove_curr(list_t);
+void list_free(list_t, list_dealloc_func_t);
 
 /* Define some constants for controlling list traversals.  We
  * bit-code the attributes so they can be OR'd together.
@@ -86,15 +85,15 @@ void list_free(LIST *, list_dealloc_func_t);
 #define LIST_EXTENT    2
 
 /* Yet more prototypes. */
-void *list_front(LIST *);
-void *list_curr(LIST *);
-void *list_rear(LIST *);
-LIST *list_mvfront(LIST *);
-LIST *list_mvrear(LIST *);
+void *list_front(list_t);
+void *list_curr(list_t);
+void *list_rear(list_t);
+list_t list_mvfront(list_t);
+list_t list_mvrear(list_t);
 
-int list_empty(LIST *);
-int list_size(LIST *);
+int list_empty(list_t);
+int list_size(list_t);
 
-int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
+int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts);
 
 #endif

@@ -60,6 +60,7 @@ static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C
 #include <stdint.h>
 
 #include "list.h"
+#include "list_private.h"
 
 LIST *list_init()
 {

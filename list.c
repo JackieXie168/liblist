@@ -21,9 +21,9 @@
  *
  * We define the following routines here:
  *
- *    LIST *list_init()
- *    LIST *list_mvprev(list)
- *    LIST *list_mvnext(list)
+ *    list_t list_init()
+ *    list_t list_mvprev(list)
+ *    list_t list_mvnext(list)
  *    char *list_insert_before(list, data, bytes)
  *    char *list_insert_after(list, data, bytes)
  *    char *list_remove_front(list)
@@ -35,14 +35,14 @@
  *    char *list_front(list)
  *    char *list_curr(list)
  *    char *list_rear(list)
- *    LIST *list_mvfront(list)
- *    LIST *list_mvrear(list)
+ *    list_t list_mvfront(list)
+ *    list_t list_mvrear(list)
  *    int list_size(list)
  *    int list_empty(list)
  *
  * for
  *
- *    LIST *list;
+ *    list_t list;
  *    char *data;
  *    int bytes;
  *    int func(data, curr)
@@ -62,12 +62,12 @@ static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C
 #include "list.h"
 #include "list_private.h"
 
-LIST *list_init()
+list_t list_init()
 {
-   LIST *list;
+   list_t list;
 
    /* Allocate, initialize, and return a new list. */
-   list = (LIST *) malloc(sizeof(LIST));
+   list = (list_t) malloc(sizeof(struct list));
    list->size = 0;
    list->front = NULL;;
    list->rear = NULL;;
@@ -76,7 +76,7 @@ LIST *list_init()
 }
 
 
-LIST *list_mvprev(LIST *list)
+list_t list_mvprev(list_t list)
 {
    /* Move to the previous link, if possible.  Note that the following
     * compound conditional expression *requires* a short-circuit evaluation.
@@ -90,7 +90,7 @@ LIST *list_mvprev(LIST *list)
 }
 
 
-LIST *list_mvnext(LIST *list)
+list_t list_mvnext(list_t list)
 {
    /* Move to the next link, if possible.  Note that the following
     * compound conditional expression *requires* a short-circuit evaluation.
@@ -104,7 +104,7 @@ LIST *list_mvnext(LIST *list)
 }
 
 
-LIST *list_mvfront(LIST *list)
+list_t list_mvfront(list_t list)
 {
    /* Move to the front of the list.*/
    list->curr = list->front;
@@ -112,7 +112,7 @@ LIST *list_mvfront(LIST *list)
 }
 
 
-LIST *list_mvrear(LIST *list)
+list_t list_mvrear(list_t list)
 {
    /* Move to the front of the list.*/
    list->curr = list->rear;
@@ -120,45 +120,45 @@ LIST *list_mvrear(LIST *list)
 }
 
 
-int list_empty(LIST *list)
+int list_empty(list_t list)
 {
    /* Return 1 if the list is empty.  0 otherwise. */
    return((list->front == NULL) ? TRUE : FALSE);
 }
 
 
-void *list_front(LIST *list)
+void *list_front(list_t list)
 {
    return((list->front == NULL) ? NULL : (list->front->data));
 }
 
 
-void *list_curr(LIST *list)
+void *list_curr(list_t list)
 {
    return((list->curr == NULL) ? NULL : (list->curr->data));
 }
 
 
-void *list_rear(LIST *list)
+void *list_rear(list_t list)
 {
    return((list->rear == NULL) ? NULL : (list->rear->data));
 }
 
 
-int list_size(LIST *list)
+int list_size(list_t list)
 {
    return(list->size);
 }
 
 
-static LIST_ELEMENT *list_create_element(void *data, int bytes)
+static list_element_t list_create_element(void *data, int bytes)
 {
-   LIST_ELEMENT *new;
+   list_element_t new;
 
    /* Allocate storage for the new node and its data.  Return NULL if
     * unable to allocate.
     */
-   new = (LIST_ELEMENT *) malloc(sizeof(LIST_ELEMENT));
+   new = (list_element_t) malloc(sizeof(struct list_element));
    if (new == NULL) {
       return(NULL);
    }
@@ -181,9 +181,9 @@ static LIST_ELEMENT *list_create_element(void *data, int bytes)
 }
 
 
-void *list_insert_before(LIST *list, void *data, int bytes)
+void *list_insert_before(list_t list, void *data, int bytes)
 {
-   LIST_ELEMENT *new;
+   list_element_t new;
 
    /* Allocate storage for the new element and its data.*/
    new = list_create_element(data, bytes);
@@ -222,9 +222,9 @@ void *list_insert_before(LIST *list, void *data, int bytes)
 }
 
 
-void *list_insert_after(LIST *list, void *data, int bytes)
+void *list_insert_after(list_t list, void *data, int bytes)
 {
-   LIST_ELEMENT *new;
+   list_element_t new;
 
    /* Allocate storage for the new element and its data.*/
    new = list_create_element(data, bytes);
@@ -263,7 +263,7 @@ void *list_insert_after(LIST *list, void *data, int bytes)
 }
 
 
-static void *list_remove_single(LIST *list)
+static void *list_remove_single(list_t list)
 {
    char *data;
 
@@ -276,9 +276,9 @@ static void *list_remove_single(LIST *list)
 }
 
 
-void *list_remove_front(LIST *list)
+void *list_remove_front(list_t list)
 {
-   LIST_ELEMENT *temp;
+   list_element_t temp;
    char *data;
 
    /* Removing and return front element, or NULL if empty.  If curr
@@ -310,9 +310,9 @@ void *list_remove_front(LIST *list)
 }
 
 
-void *list_remove_rear(LIST *list)
+void *list_remove_rear(list_t list)
 {
-   LIST_ELEMENT *temp;
+   list_element_t temp;
    char *data;
 
    /* Removing and return rear element, or NULL if empty.  If curr
@@ -344,9 +344,9 @@ void *list_remove_rear(LIST *list)
 }
 
 
-void *list_remove_curr(LIST *list)
+void *list_remove_curr(list_t  list)
 {
-   LIST_ELEMENT *temp;
+   list_element_t temp;
    char *data;
 
    /* Remove the current element, returning a pointer to the data, or
@@ -385,9 +385,9 @@ void *list_remove_curr(LIST *list)
 }
 
 
-int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts)
+int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts)
 {
-   LIST_ELEMENT *lp;
+   list_element_t lp;
    int status, rc;
 
    /* Traverse the list according to opts, calling func at each element,
@@ -441,7 +441,7 @@ int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts)
 }
 
 
-void list_free(LIST *list, list_dealloc_func_t dealloc)
+void list_free(list_t list, list_dealloc_func_t dealloc)
 {
    char *data;
 

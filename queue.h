@@ -24,7 +24,11 @@
 
 #include <list.h>
 
-/* Present the queue datatypes in terms of list types (our point exactly). */
+/* define queue objects in terms of list */
+#define queue_t list_t
+#define queue_element_t list_element_t
+
+/* backwards compatibility */
 #define QUEUE LIST
 #define QUEUE_ELEMENT LIST_ELEMENT
 
@@ -45,4 +49,4 @@
 #define QUEUE_DEALLOC   LIST_DEALLOC
 #define QUEUE_NODEALLOC LIST_NODEALLOC
 
-#endif
+#endif /* _LIBLIST_QUEUE_H */

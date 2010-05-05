@@ -25,6 +25,10 @@
 #include <list.h>
 
 /* Present the stack datatypes in terms of list types (our point exactly). */
+#define stack_t list_t
+#define stack_element_t list_element_t
+
+/* Backwards compatibility */
 #define STACK LIST
 #define STACK_ELEMENT LIST_ELEMENT
 
@@ -45,5 +49,4 @@
 #define STACK_DEALLOC   LIST_DEALLOC
 #define STACK_NODEALLOC LIST_NODEALLOC
 
-#endif
-
+#endif /* _LIBLIST_STACK_H */

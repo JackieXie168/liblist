@@ -33,10 +33,12 @@ libcache_la_LIBADD = liblist.la
 #
 # tests
 #
-TESTS = tests/basic
+TESTS = tests/basic \
+	tests/oldapi
 check_PROGRAMS = $(TESTS)
 
 tests_basic_LDADD = liblist.la
+tests_oldapi_LDADD = liblist.la
 
 # misc files to throw into the tarball.
 # the examples/*test.c files are just interactive prompt-driven

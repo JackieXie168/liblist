@@ -17,8 +17,8 @@ AC_CONFIG_SRCDIR([list.c])
 
 AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])
 
-AC_PROG_CC_C_O
-AC_PROG_LIBTOOL
+AM_PROG_CC_C_O
+LT_INIT
 
 AC_ARG_ENABLE([examples],
 	[AS_HELP_STRING([--enable-examples], [attempt to compile and install examples])],

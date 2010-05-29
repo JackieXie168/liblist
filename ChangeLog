@@ -1,4 +1,11 @@
-2009-12-29  Nathan Phillip Brink  <ohnobinki@gmail.com>
+2010-05-29 Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
+	* liblist-2.3.1:
+	- #defines to prevent symbol collions such as with libmysqlclient.so ( http://bugs.mysql.com/52725 )
+	- API now uses typedefs instead of macros for types
+	- a very basic testsuite
+	- release 2.3 isn't distributed because it was a dud without the shared object ABI version bump or these changelogs
+
+2009-12-29  Nathan Phillip Brink  <ohnobinki@ohnopublishing.net>
 
 	* liblist-2.2.1:
 	- Fixed parallel build issue with LaTeX (to please flameeyes ;-) ).

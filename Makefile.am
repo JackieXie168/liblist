@@ -25,7 +25,7 @@ lib_LTLIBRARIES += libcache.la
 endif
 
 liblist_la_SOURCES = list.c list_private.h
-liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 1:0:0
+liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 2:0:0
 
 libcache_la_SOURCES = examples/cache/cache.c
 libcache_la_LIBADD = liblist.la

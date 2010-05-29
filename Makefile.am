@@ -15,7 +15,7 @@
 dist_man3_MANS = man/llist.3 \
 	man/lqueue.3 \
 	man/lstack.3
-include_HEADERS = list.h queue.h stack.h
+include_HEADERS = list.h list_namespace.h queue.h stack.h
 lib_LTLIBRARIES = liblist.la
 
 if EXAMPLES

@@ -24,6 +24,8 @@
 #ifndef _LIBLIST_LIST_H
 #define _LIBLIST_LIST_H
 
+#include <list_namespace.h>
+
 /* Define a structure to describe the list. */
 struct list;
 typedef struct list *list_t;

@@ -35,6 +35,7 @@
 #include <stack.h>
 #include <queue.h>
 
+#include <malloc.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -51,6 +52,13 @@ int main(int argc, char *argv[])
     {
       fprintf(stderr, "LIST fails: %d\n", ret);
       return 1;
+    }
+
+  ret = check_stack();
+  if(ret)
+    {
+      fprintf(stderr, "STACK fails: %d\n", ret);
+      return 2;
     }
 
   return 0;
@@ -133,3 +141,67 @@ int check_list()
   return 0;
 }
 
+
+int check_stack()
+{
+  STACK *stack;
+  char *dataptr;
+
+  size_t counter;
+
+  stack = stack_init();
+  if(!stack)
+    return 1;
+
+  for(counter = 0; datas[counter]; counter ++)
+    {
+      dataptr = (char *)stack_push(stack, datas[counter], strlen(datas[counter]) + 1);
+      if(strcmp(dataptr, datas[counter]))
+	{
+	  fprintf(stderr, "got %s, expecting %s\n", dataptr, datas[counter]);
+	  return 2;
+	}
+      dataptr = (char *)stack_top(stack);
+      if(strcmp(dataptr, datas[counter]))
+	{
+	  fprintf(stderr, "got %s, expecting %s\n", dataptr, datas[counter]);
+	  return 3;
+	}
+    }
+
+  if(stack_size(stack) != counter)
+    {
+      fprintf(stderr, "stack size is %d, expected %zu\n", stack_size(stack), counter);
+      return 4;
+    }
+
+  while(!stack_empty(stack))
+    {
+      dataptr = (char *)stack_pop(stack);
+      if(!dataptr)
+	{
+	  fprintf(stderr, "stack is not empty but stack_pop() returns NULL\n");
+	  return 5;
+	}
+
+      printf("%s\n", dataptr);
+      free(dataptr);
+    }
+
+  dataptr = (char *)stack_pop(stack);
+  if(dataptr)
+    {
+      fprintf(stderr, "stack is empty but I still got %s\n", dataptr);
+      return 6;
+    }
+
+  if(stack_size(stack) != 0)
+    {
+      fprintf(stderr, "stack is empty but has a size of %d\n", stack_size(stack));
+      return 7;
+    }
+
+  stack_free(stack, STACK_DEALLOC);
+
+  return 0;
+}

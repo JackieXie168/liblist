@@ -61,6 +61,13 @@ int main(int argc, char *argv[])
       return 2;
     }
 
+  ret = check_queue();
+  if(ret)
+    {
+      fprintf(stderr, "QUEUE fails: %d\n", ret);
+      return 3;
+    }
+
   return 0;
 }
 
@@ -202,6 +209,58 @@ int check_stack()
     }
 
   stack_free(stack, STACK_DEALLOC);
+
+  return 0;
+}
+
+int check_queue()
+{
+  QUEUE *queue;
+  char *item;
+
+  size_t counter;
+
+  queue = q_init();
+  if(!queue)
+    {
+      fprintf(stderr, "unable to initialize queue\n");
+      return 0;
+    }
+
+  for(counter = 0; datas[counter]; counter ++)
+    q_enqueue(queue, datas[counter], strlen(datas[counter]) + 1);
+
+  item = (char *)q_front(queue);
+  if(!item)
+    {
+      fprintf(stderr, "got NULL when expecting %s\n", datas[counter]);
+      return 1;
+    }
+  if(strcmp(item, datas[0]))
+    {
+      fprintf(stderr, "q_front() returned %s, expecting %s\n", item, datas[0]);
+      return 2;
+    }
+
+  for(counter = 0; datas[counter]; counter ++)
+    {
+      item = (char *)q_dequeue(queue);
+      if(!item || strcmp(item, datas[counter]))
+	{
+	  fprintf(stderr, "got %s, expecting %s\n", item, datas[counter]);
+	  return 3;
+	}
+      free(item);
+    }
+  
+  item = (char *)q_dequeue(queue);
+  if(item)
+    {
+      fprintf(stderr, "got %s when expecting NULL\n", item);
+      return 4;
+    }
+
+  q_free(queue, QUEUE_NODEALLOC);
 
   return 0;
 }

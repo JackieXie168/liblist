@@ -1,3 +1,8 @@
+	- Add --enable-debug switch to ./configure to suppress definition of NDEBUG.
+	- Use enum for the return values of list_traverse_func_t.
+	- Allow traversals to delete members of a list by returning LIST_TRAVERSE_DELETE
+	  or LIST_TRAVERSE_DELETE_FREE
+
 2010-05-29 Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
 	* liblist-2.3.1:
 	- #defines to prevent symbol collions such as with libmysqlclient.so ( http://bugs.mysql.com/52725 )

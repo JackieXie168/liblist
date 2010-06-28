@@ -34,6 +34,34 @@ typedef struct list *list_t;
 struct list_element;
 typedef struct list_element *list_element_t;
 
+/**
+   Valid return values for the function passed to list_traverse().
+
+   LIST_TRAVERSE_STOP (replaces old value FALSE) stops the traversal.
+   If LIST_ALTR was passed to list_traverse, then list_curr() points
+   to the element that was just visited.
+
+   LIST_TRAVERSE_CONTINUE (repalces old value TRUE) continues the traversal.
+   If the current element is the last element in the list, the traversal
+   will stop regardless.
+
+   LIST_TRAVERSE_DELETE (new with liblist-2.4) continues the traversal
+   as if LIST_TRAVERSE_CONTINUE was returned but also removes the current
+   element from the list. The traversal function that returns this value
+   must handle freeing of the data associated with this list item. If you
+   asked liblist to allocate data for this list, you instead return
+   LIST_TRAVERSE_DELETE_FREE which will use liblist's arbitrary internal
+   deallocator.
+ */
+enum list_traverse_return
+  {
+    LIST_TRAVERSE_STOP = 0,
+    LIST_TRAVERSE_CONTINUE = 1,
+    LIST_TRAVERSE_DELETE = 2,
+    LIST_TRAVERSE_DELETE_FREE = 3,
+  };
+typedef enum list_traverse_return list_traverse_return_t;
+
 /*
   Backwards API compatibility plug.
   We're willing to make the API as backwards-compatible as possible
@@ -43,7 +71,7 @@ typedef struct list_element *list_element_t;
 #define LIST_ELEMENT struct list_element
 #define LIST struct list
 
-typedef int (*list_traverse_func_t)(void *data, void *node_data);
+typedef list_traverse_return_t (*list_traverse_func_t)(void *data, void *node_data);
 typedef void (*list_dealloc_func_t)(void *);
 
 /**
@@ -73,7 +101,11 @@ void list_free(list_t, list_dealloc_func_t);
 #define LIST_SAVE	32
 #define LIST_ALTR	64
 
-/* Define some constants for return codes and such. */
+/**
+ Define some constants for return codes and such.
+
+ Use of TRUE and FALSE is deprecated. See list_traverse_return_t.
+*/
 #ifndef TRUE
 #define TRUE  1
 #endif

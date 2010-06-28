@@ -384,60 +384,105 @@ void *list_remove_curr(list_t  list)
    return(data);
 }
 
+/*
+  Helper for list_traverse() supporting its support for
+  deleting elements while in traversal.
 
+  @param element may not be NULL and must point to a valid member
+  of list. After this function is called, element will be an
+  invalid pointer.
+ */
+void *list_remove_element(list_t list, list_element_t element)
+{
+  void *data;
+
+  if (list->front == element)
+    return list_remove_front(list);
+
+  if (list->rear == element)
+    return list_remove_rear(list);
+
+  if (list->curr == element)
+    return list_remove_curr(list);
+
+  /*
+    Now it is safe to assume that we're in a 3-element or larger
+    list and that element is not at either end of this list.
+   */
+  data = element->data;
+  element->next->prev = element->prev;
+  element->prev->next = element->next;
+  list->curr = element->next;
+  free(element);
+  list->size --;
+
+  return data;
+}
+
+/**
+ * Traverse the list according to opts, calling func at each element,
+ * until func returns 0 or the extent of the list is reached.  We
+ * return LIST_EMPTY if the list is empty, LIST_EXTENT if we tried to
+ * go beyond the extent of the list, and LIST_OK otherwise.  We may
+ * and should affect the current element pointer only if opts includes
+ * LIST_ALTR.
+ */
 int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts)
 {
    list_element_t lp;
-   int status, rc;
+   list_element_t lp_next;
+   int status;
 
-   /* Traverse the list according to opts, calling func at each element,
-    * until func returns 0 or the extent of the list is reached.  We return
-    * 0 if the list is empty, 2 if we tried to go beyond the extent of the
-    * list, and 1 otherwise.  We may or may not affect the current element
-    * pointer.
-    */
    if (list->front == NULL)
-      return(LIST_EMPTY);
-   
+      return LIST_EMPTY;
+
    /* Decide where to start. */
-   if ((opts & LIST_CURR) == LIST_CURR) {
-      lp = list->curr;
-   }
-   else if ((opts & LIST_REAR) == LIST_REAR) {
-      lp = list->rear;
-   }
-   else {
-      lp = list->front;
-   }
-   
-   /* Now decide if to update the current element pointer. */
-   if ((opts & LIST_ALTR) == LIST_ALTR)
-      list->curr = lp;
+   if ((opts & LIST_CURR) == LIST_CURR)
+     lp = list->curr;
+   else if ((opts & LIST_REAR) == LIST_REAR)
+     lp = list->rear;
+   else
+     lp = list->front;
 
    /* Now go until 0 is returned or we hit the extent of the list. */
-   rc = LIST_OK;
-   status = TRUE;
-   while(status) {
-      status = (*func)(data, lp->data);
-      if (status) {
-	 if ((((opts & LIST_BACK) == LIST_BACK) ? (lp->prev) : (lp->next))
-	     == NULL) {
-	    /* Tried to go beyond extent of list. */
-	    status = FALSE;
-	    rc = LIST_EXTENT;
-	 }
-	 else {
-	    /* Decide where to go next. */
-	    lp = (((opts & LIST_BACK) == LIST_BACK) ? (lp->prev) : (lp->next));
+   status = LIST_TRAVERSE_CONTINUE;
+   while(status != LIST_TRAVERSE_STOP)
+     {
+       /* Tried to go beyond extent of list. */
+       if (lp == NULL)
+	 return LIST_EXTENT;
 
-	    /* Now decide if to update the current element pointer. */
-	    if ((opts & LIST_ALTR) == LIST_ALTR)
-	       list->curr = lp;
-	 }
-      }
-   }
+       /* Now decide if to update the current element pointer. */
+       if ((opts & LIST_ALTR) == LIST_ALTR)
+	 list->curr = lp;
 
-   return(rc);
+       status = (*func)(data, lp->data); 
+       
+       /* Determine where to go next. */
+       lp_next = (((opts & LIST_BACK) == LIST_BACK) ? (lp->prev) : (lp->next));
+       
+       switch (status)
+	 {
+	 case LIST_TRAVERSE_DELETE_FREE:
+	   list_free_free(lp->data);
+	 case LIST_TRAVERSE_DELETE:
+	   list_remove_element(list, lp);
+	   break;
+
+	 case LIST_TRAVERSE_STOP:
+	   return LIST_OK;
+
+	 default:
+#ifndef NDEBUG
+	   fprintf(stderr, "liblist:list_traverse(): Traversal function returned incorrect value, pretending LIST_TRAVERSE_CONTINUE was passed\n");
+#endif
+	 case LIST_TRAVERSE_CONTINUE:
+	   break;
+	 }
+       lp = lp_next;
+     }
+
+   return LIST_OK;
 }
 
 

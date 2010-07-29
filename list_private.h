@@ -26,14 +26,16 @@
 
 #include "list.h"
 
-struct list {
-   int size;
-   list_element_t front;
-   list_element_t rear;
-   list_element_t curr;
+struct list
+{
+  size_t size;
+  list_element_t front;
+  list_element_t rear;
+  list_element_t curr;
 };
 
-struct list_element {
+struct list_element
+{
   list_element_t prev;
   list_element_t next;
   void *data;

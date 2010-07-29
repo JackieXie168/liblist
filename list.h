@@ -25,6 +25,7 @@
 #define _LIBLIST_LIST_H
 
 #include <list_namespace.h>
+#include <stddef.h>
 
 /* Define a structure to describe the list. */
 struct list;
@@ -55,8 +56,8 @@ void list_free_free(void *);
 list_t list_init();
 list_t list_mvprev(list_t);
 list_t list_mvnext(list_t);
-void *list_insert_before(list_t, void *data, int len);
-void *list_insert_after(list_t, void *data, int len);
+void *list_insert_before(list_t, void *data, size_t len);
+void *list_insert_after(list_t, void *data, size_t len);
 void *list_remove_front(list_t);
 void *list_remove_rear(list_t);
 void *list_remove_curr(list_t);
@@ -94,7 +95,7 @@ list_t list_mvfront(list_t);
 list_t list_mvrear(list_t);
 
 int list_empty(list_t);
-int list_size(list_t);
+size_t list_size(list_t);
 
 int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts);
 

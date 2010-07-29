@@ -20,7 +20,7 @@ cc [
 QUEUE *q_init()
 .PP
 .ft B
-void *q_enqueue(QUEUE *q, void *data, int bytes);
+void *q_enqueue(QUEUE *q, void *data, size_t len);
 .PP
 .ft B
 void *q_dequeue(QUEUE *q);
@@ -29,7 +29,7 @@ void *q_dequeue(QUEUE *q);
 void *q_front(QUEUE *q);
 .PP
 .ft B
-int q_size(QUEUE *q);
+size_t q_size(QUEUE *q);
 .PP
 .ft B
 int q_empty(QUEUE *q);
@@ -58,11 +58,11 @@ initializes and returns a queue descriptor.
 enqueues an element, pointed to by
 .IR data
 and of size
-.IR bytes ,
+.IR len ,
 to the end of
 .IR q ,
 and returns a pointer to the enqueued data.  If
-.IR bytes
+.IR len
 is greater than 0, then data is copied into the queue, otherwise only
 the reference
 .IR data
@@ -82,7 +82,7 @@ but does not remove the element. \c
 .IR q_size
 returns the number of elements in
 .IR q
-as an integer. \c
+as a size_t. \c
 .PP
 .IR q_empty
 returns 1 (TRUE) if
@@ -100,7 +100,7 @@ is QUEUE_DEALLOC, then the package will apply its own deallocation
 routine.  This, however, should only be done if the package has been
 responsible for data element allocation, i.e., the enqueue routine has
 been invoked with
-.IR bytes
+.IR len
 greater than 0.  If
 .IR dealloc
 is QUEUE_NODEALLOC, no per-element deallocation will be performed.
@@ -112,9 +112,9 @@ and
 allocate memory during their execution.  As such, 
 .IR q_enqueue
 enqueues a copy of the data onto the queue when
-.IR bytes
+.IR len
 is greater than 0.  If
-.IR bytes
+.IR len
 is 0, then only the reference is copied onto the queue.  This allows
 the user to control the memory allocation policy.
 Both functions may fail during memory allocation; see DIAGNOSTICS
@@ -129,7 +129,7 @@ such dequeued data.
 
 If the user has been responsile for data element storage allocation, i.e. the
 enqueue routine has been called with
-.IR bytes
+.IR len
 equal to 0, then the user must be responsible for storage deallocation
 as well.  A user-supplied deallocation function should be passed to
 .IR queue_free

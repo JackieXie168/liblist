@@ -20,7 +20,7 @@ cc [
 STACK *stack_init()
 .PP
 .ft B
-void *stack_push(STACK *stack, void *data, int bytes);
+void *stack_push(STACK *stack, void *data, int len);
 .PP
 .ft B
 void *stack_pop(STACK *stack);
@@ -29,7 +29,7 @@ void *stack_pop(STACK *stack);
 void *stack_top(STACK *stack);
 .PP
 .ft B
-int stack_size(STACK *stack);
+size_t stack_size(STACK *stack);
 .PP
 .ft B
 int stack_empty(STACK *stack);
@@ -58,11 +58,11 @@ initializes and returns a stack descriptor.
 pushes an element, pointed to by
 .IR data
 and of size
-.IR bytes ,
+.IR len ,
 onto
 .IR stack ,
 and returns a pointer to the pushed data.  If
-.IR bytes
+.IR len
 is greater than 0, then data is copied onto the stack, otherwise only
 the reference
 .IR data
@@ -82,7 +82,7 @@ but does not remove the element. \c
 .IR stack_size
 returns the number of elements on
 .IR stack
-as an integer. \c
+as a size_t. \c
 .PP
 .IR stack_empty
 returns 1 (TRUE) if
@@ -100,7 +100,7 @@ is STACK_DEALLOC, then the package will apply its own deallocation
 routine.  This, however, should only be done if the package has been
 responsible for data element allocation, i.e., the push routine has
 been invoked with
-.IR bytes
+.IR len
 greater than 0.  If
 .IR dealloc
 is STACK_NODEALLOC, no per-element deallocation will be performed.
@@ -112,9 +112,9 @@ and
 allocate memory during their execution.  As such, 
 .IR stack_push
 pushes a copy of the data onto the stack when
-.IR bytes
+.IR len
 is greater than 0.  If 
-.IR bytes
+.IR len
 is 0, then only the reference is copied onto the stack.  This allows
 the user to control the memory allocation policy.
 Both functions may fail during memory allocation; see DIAGNOSTICS
@@ -129,7 +129,7 @@ such popped data.
 
 If the user has been responsile for data element storage allocation, i.e. the
 push routine has been called with
-.IR bytes
+.IR len
 equal to 0, then the user must be responsible for storage deallocation
 as well.  A user-supplied deallocation function should be passed to
 .IR stack_free

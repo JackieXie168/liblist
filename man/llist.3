@@ -42,10 +42,10 @@ void *list_curr(LIST *list);
 void *list_rear(LIST *list);
 .PP
 .ft B
-void *list_insert_before(LIST *list, void *data, int bytes);
+void *list_insert_before(LIST *list, void *data, size_t len);
 .PP
 .ft B
-void *list_insert_after(LIST *list, void *data, int bytes);
+void *list_insert_after(LIST *list, void *data, size_t len);
 .PP
 .ft B
 void *list_remove_front(LIST *list);
@@ -57,7 +57,7 @@ void *list_remove_curr(LIST *list);
 void *list_remove_rear(LIST *list);
 .PP
 .ft B
-int list_size(LIST *list);
+size_t list_size(LIST *list);
 .PP
 .ft B
 int list_empty(LIST *list);
@@ -111,13 +111,13 @@ and
 insert an element, pointed to by
 .IR data
 and of size
-.IR bytes ,
+.IR len ,
 into
 .IR list ,
 either before or after the current element.  The newly inserted element is
 then considered the current element.  Both routines return a pointer to the
 newly inserted data.  If
-.IR bytes
+.IR len
 is greater than 0, then data is copied into the list, otherwise
 only the reference
 .IR data
@@ -139,7 +139,7 @@ remove).
 .IR list_size
 returns the size (or number of elements) of
 .IR list
-as an integer. \c
+as a size_t. \c
 .PP
 .IR list_empty
 returns 1 (TRUE) if
@@ -170,7 +170,7 @@ is LIST_DEALLOC, then the package will apply its own deallocation
 routine.  This, however, should only be done if the package has been
 responsible for data element allocation, i.e., the insert routines
 have been invoked with
-.IR bytes
+.IR len
 greater than 0.  If
 .IR dealloc
 is LIST_NODEALLOC, no per-element deallocation will be performed.
@@ -307,9 +307,9 @@ allocate memory during their execution.  As such,
 and
 .IR list_insert_after
 insert a copy of the data into the list when they are invoked with
-.IR bytes
+.IR len
 greater than 0.  If
-.IR bytes
+.IR len
 is 0, then only the reference is copied into the list.  This allows
 the user to control the memory allocation policy.  Both functions may
 fail during memory allocation; see DIAGNOSTICS below for more information.
@@ -326,7 +326,7 @@ such removed data.
 
 If the user has been responsile for data element storage allocation, i.e. the
 insert routines have been called with
-.IR bytes
+.IR len
 equal to 0, then the user must be responsible for storage deallocation
 as well.  A user-supplied deallocation function should be passed to
 .IR list_free

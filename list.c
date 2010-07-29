@@ -24,8 +24,8 @@
  *    list_t list_init()
  *    list_t list_mvprev(list)
  *    list_t list_mvnext(list)
- *    char *list_insert_before(list, data, bytes)
- *    char *list_insert_after(list, data, bytes)
+ *    char *list_insert_before(list, data, len)
+ *    char *list_insert_after(list, data, len)
  *    char *list_remove_front(list)
  *    char *list_remove_curr(list)
  *    char *list_remove_rear(list)
@@ -37,14 +37,14 @@
  *    char *list_rear(list)
  *    list_t list_mvfront(list)
  *    list_t list_mvrear(list)
- *    int list_size(list)
+ *    size_t list_size(list)
  *    int list_empty(list)
  *
  * for
  *
  *    list_t list;
  *    char *data;
- *    int bytes;
+ *    size_t len;
  *    int func(data, curr)
  *       char *data;
  *       char *curr;
@@ -54,6 +54,7 @@
 
 static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C. Spatz";
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -145,13 +146,13 @@ void *list_rear(list_t list)
 }
 
 
-int list_size(list_t list)
+size_t list_size(list_t list)
 {
    return(list->size);
 }
 
 
-static list_element_t list_create_element(void *data, int bytes)
+static list_element_t list_create_element(void *data, size_t len)
 {
    list_element_t new;
 
@@ -163,15 +164,15 @@ static list_element_t list_create_element(void *data, int bytes)
       return(NULL);
    }
 
-   /* Allocate storage for the data only if requested; i.e. if bytes > 0.
+   /* Allocate storage for the data only if requested; i.e. if len > 0.
     * Then either copy the data or just the reference into the node.
     */
-   if (bytes > 0) {
-      new->data = (char *) malloc(bytes);
+   if (len > 0) {
+      new->data = (char *) malloc(len);
       if (new->data == NULL) {
 	 return(NULL);
       }
-      (void) memcpy(new->data, data, bytes);
+      (void) memcpy(new->data, data, len);
    }
    else {
       new->data = (char *) data;
@@ -181,12 +182,12 @@ static list_element_t list_create_element(void *data, int bytes)
 }
 
 
-void *list_insert_before(list_t list, void *data, int bytes)
+void *list_insert_before(list_t list, void *data, size_t len)
 {
    list_element_t new;
 
    /* Allocate storage for the new element and its data.*/
-   new = list_create_element(data, bytes);
+   new = list_create_element(data, len);
    if (new == NULL)
       return(NULL);
 
@@ -222,12 +223,12 @@ void *list_insert_before(list_t list, void *data, int bytes)
 }
 
 
-void *list_insert_after(list_t list, void *data, int bytes)
+void *list_insert_after(list_t list, void *data, size_t len)
 {
    list_element_t new;
 
    /* Allocate storage for the new element and its data.*/
-   new = list_create_element(data, bytes);
+   new = list_create_element(data, len);
    if (new == NULL)
       return(NULL);
 

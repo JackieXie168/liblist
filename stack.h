@@ -38,7 +38,7 @@
  * primitives directly.
  */
 #define stack_init()                     list_init()
-#define stack_push(stack, data, bytes)   list_insert_before(stack, data, bytes)
+#define stack_push(stack, data, len)   list_insert_before(stack, data, len)
 #define stack_pop(stack)                 list_remove_front(stack)
 #define stack_top(stack)                 list_front(stack)
 #define stack_size(stack)                list_size(stack)

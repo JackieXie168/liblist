@@ -38,7 +38,7 @@
  * With this model, we map onto the list primitives directly.
  */
 #define q_init()                        list_init()
-#define q_enqueue(queue, data, bytes)   list_insert_after(queue, data, bytes)
+#define q_enqueue(queue, data, len)   list_insert_after(queue, data, len)
 #define q_dequeue(queue)                list_remove_front(queue)    
 #define q_front(queue)                  list_front(queue)
 #define q_size(queue)                   list_size(queue)

@@ -63,7 +63,7 @@ size_t list_size(LIST *list);
 int list_empty(LIST *list);
 .PP
 .ft B
-typedef int (*list_traverse_func_t)(void *data, void *node_data);
+typedef int (*list_traverse_func_t)(void *data, void *element);
 .PP
 .ft B
 int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
@@ -188,7 +188,7 @@ parameter.
 should be declared as follows:
 .PP
 .RS
-int func(void *data, void *curr);
+int func(void *data, void *element);
 .RE
 .PP
 and should return 1 (TRUE) if the traversal should continue, or 0 (FALSE)
@@ -203,12 +203,12 @@ will invoke
 passing it the two parameters
 .IR data
 and
-.IR curr ;
+.IR element ;
 .IR data
 being the data pointer sent to
 .IR list_traverse
 originally, and
-.IR curr
+.IR element
 being the data pointer of the current element in the traversal.  For example,
 by passing the following function to
 .IR list_traverse ,
@@ -221,9 +221,9 @@ struct mystruct
     char *name;
 };
 
-int func(void *data, struct mystruct *curr)
+int func(void *data, struct mystruct *element)
 {
-    printf("Name=%30s.\\n", curr->name);
+    printf("Name=%30s.\\n", element->name);
     return TRUE;
 }
 .fi
@@ -236,9 +236,9 @@ like
 .PP
 .RS
 .nf
-int func(void *data, void *curr)
+int func(void *data, void *element)
 {
-    if (strcmp(data, curr))
+    if (strcmp(data, element))
        return TRUE;
     else
        return FALSE;

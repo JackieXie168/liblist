@@ -44,7 +44,7 @@ typedef struct list_element *list_element_t;
 #define LIST_ELEMENT struct list_element
 #define LIST struct list
 
-typedef int (*list_traverse_func_t)(void *data, void *node_data);
+typedef int (*list_traverse_func_t)(void *data, void *element);
 typedef void (*list_dealloc_func_t)(void *);
 
 /**

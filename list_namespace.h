@@ -29,6 +29,7 @@
   Ideally, the list.h should be usable as an API reference.
  */
 
+#define list_brag liblist_list_brag
 #define list_free_free liblist_list_free_free
 #define list_init liblist_list_init
 #define list_mvprev liblist_list_mvprev

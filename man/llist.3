@@ -57,6 +57,9 @@ void *list_remove_curr(LIST *list);
 void *list_remove_rear(LIST *list);
 .PP
 .ft B
+int list_remove_element(list_t list, void *element);
+.PP
+.ft B
 size_t list_size(LIST *list);
 .PP
 .ft B
@@ -135,6 +138,22 @@ The current element is then set to the next element (prior to the remove) in
 the list, unless the element at the rear of the list was removed.  In this
 case, the current element is set to the previous element (prior to the
 remove).
+.PP
+.IR list_remove_element
+removes an element identified by the pointer
+.IR element
+from the list. This function is only useful if you are allocating data
+for each element yourself (i.e., you are setting len to 0 when calling
+.IR list_insert_before
+or
+.IR list_insert_after
+). This function will remove all instances of
+.IR element
+, at the expense of forcing a traversal of the whole list. If the end
+of the list is reached without finding
+.IR element
+, LIST_EXTENT is returned. Otherwise, if one or more elements is
+successfully removed, LIST_OK is returned.
 .PP
 .IR list_size
 returns the size (or number of elements) of

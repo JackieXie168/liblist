@@ -20,6 +20,8 @@ AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])
 AM_PROG_CC_C_O
 LT_INIT
 
+AC_TYPE_INTPTR_T
+
 AC_ARG_ENABLE([examples],
 	[AS_HELP_STRING([--enable-examples], [attempt to compile and install examples])],
 	[enable_examples=$enableval],
@@ -33,5 +35,5 @@ AC_ARG_ENABLE([docs],
 AM_CONDITIONAL([DOCS], [test "x$enable_docs" = "xyes"])
 
 AC_CONFIG_FILES([Makefile
-liblist.pc])
+	liblist.pc])
 AC_OUTPUT

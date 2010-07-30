@@ -66,6 +66,25 @@ void *list_insert_after(list_t, void *data, size_t len);
 void *list_remove_front(list_t);
 void *list_remove_rear(list_t);
 void *list_remove_curr(list_t);
+
+/**
+ * Convenience function to remove an element from a list if its
+ * pointer is known.
+ *
+ * This is only to be useful when the second argument to
+ * list_insert_before() or list_insert_after() is 0. Will remove
+ * multiple entries of element, at the expense of avoiding a shortcut
+ * if you know there is only one entry of element in list.
+ *
+ * The list's position (i.e., list_curr(), list_mvnext(), etc.) is not
+ * preserved.
+ *
+ * @param list the list from which to remove the element.
+ * @param element the pointer by which the element is accessible.
+ * @return LIST_OK if successful, LIST_EXTENT if the element is not found.
+ */
+int list_remove_element(list_t list, void *element);
+
 void list_free(list_t, list_dealloc_func_t);
 
 /* Define some constants for controlling list traversals.  We

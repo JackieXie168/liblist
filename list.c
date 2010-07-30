@@ -387,6 +387,33 @@ void *list_remove_curr(list_t  list)
    return(data);
 }
 
+static int _list_remove_element_traverse(void *element_to_find, void *element)
+{
+  if(element_to_find == element)
+    return FALSE;
+  return TRUE;
+}
+
+/* element refers to the data member of struct list_element */
+int list_remove_element(list_t list, void *element)
+{
+  int hit;
+
+  hit = 0;
+
+  list_mvfront(list);
+  while(list_traverse(list, element, &_list_remove_element_traverse, LIST_FORW|LIST_CURR|LIST_ALTR) == LIST_OK)
+    {
+      list_remove_curr(list);
+      list_mvnext(list);
+      hit = 1;
+    }
+
+  if(hit)
+    return LIST_OK;
+  return LIST_EXTENT;
+}
+
 
 int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts)
 {

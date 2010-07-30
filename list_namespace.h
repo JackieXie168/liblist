@@ -39,6 +39,7 @@
 #define list_remove_front liblist_list_remove_front
 #define list_remove_rear liblist_list_remove_rear
 #define list_remove_curr liblist_list_remove_curr
+#define list_remove_element liblist_list_remove_element
 #define list_free liblist_list_free
 #define list_front liblist_list_front
 #define list_curr liblist_list_curr

@@ -32,6 +32,28 @@
  */
 extern const char *list_brag;
 
+typedef enum list_status
+  {
+    /**
+     * The list is empty.
+     */
+    LIST_EMPTY = 0,
+    /**
+     * The operation completed successfully.
+     */
+    LIST_OK = 1,
+    /**
+     * The end of the list was reached. For list_traverse(), this
+     * means that the traversal function returned TRUE even though it
+     * was accessing the last element of the list. (Such is
+     * unavoidable). For list_remove_element(), this means that no
+     * elements were removed from the list. I.e., it reached the end
+     * of the list without finding anything to do even though it would
+     * traverse the whole list anyway.
+     */
+    LIST_EXTENT = 2,
+  } list_status_t;
+
 /* Define a structure to describe the list. */
 struct list;
 typedef struct list *list_t;
@@ -40,11 +62,13 @@ typedef struct list *list_t;
 struct list_element;
 typedef struct list_element *list_element_t;
 
-/*
-  Backwards API compatibility plug.
-  We're willing to make the API as backwards-compatible as possible
-  but we are going to enforce opaque handles, eliminating the macros
-  instead of functions option.
+/**
+ * Backwards API compatibility plug.
+ * We're willing to make the API as backwards-compatible as possible
+ * but we are going to enforce opaque handles, eliminating the macros
+ * instead of functions option.
+ *
+ * @deprecated These #defines must be preserved for eternity, but don't use them!
  */
 #define LIST_ELEMENT struct list_element
 #define LIST struct list
@@ -83,7 +107,7 @@ void *list_remove_curr(list_t);
  * @param element the pointer by which the element is accessible.
  * @return LIST_OK if successful, LIST_EXTENT if the element is not found.
  */
-int list_remove_element(list_t list, void *element);
+list_status_t list_remove_element(list_t list, void *element);
 
 void list_free(list_t, list_dealloc_func_t);
 
@@ -107,9 +131,6 @@ void list_free(list_t, list_dealloc_func_t);
 #endif
 #define LIST_DEALLOC   (&list_free_free)
 #define LIST_NODEALLOC (list_dealloc_func_t)NULL
-#define LIST_EMPTY     0
-#define LIST_OK        1
-#define LIST_EXTENT    2
 
 /* Yet more prototypes. */
 void *list_front(list_t);
@@ -121,6 +142,6 @@ list_t list_mvrear(list_t);
 int list_empty(list_t);
 size_t list_size(list_t);
 
-int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts);
+list_status_t list_traverse(list_t list, void *data, list_traverse_func_t func, int opts);
 
 #endif

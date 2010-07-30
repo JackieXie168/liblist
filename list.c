@@ -24,12 +24,13 @@
  *    list_t list_init()
  *    list_t list_mvprev(list)
  *    list_t list_mvnext(list)
- *    char *list_insert_before(list, data, len)
- *    char *list_insert_after(list, data, len)
+ *    char *list_insert_before(list, element, len)
+ *    char *list_insert_after(list, element, len)
  *    char *list_remove_front(list)
  *    char *list_remove_curr(list)
  *    char *list_remove_rear(list)
- *    int list_traverse(list, data, func, opts);
+ *    list_status_t list_remove_element(list, element);
+ *    list_status_t list_traverse(list, data, func, opts);
  *    void list_free(list, dealloc)
  *
  *    char *list_front(list)
@@ -43,13 +44,13 @@
  * for
  *
  *    list_t list;
- *    char *data;
+ *    void *element;
  *    size_t len;
  *    int func(data, curr)
- *       char *data;
- *       char *curr;
+ *       void *data;
+ *       void *curr;
  *    void dealloc(data)
- *       char *data;
+ *       void *data;
  */
 
 #include <stddef.h>
@@ -395,7 +396,7 @@ static int _list_remove_element_traverse(void *element_to_find, void *element)
 }
 
 /* element refers to the data member of struct list_element */
-int list_remove_element(list_t list, void *element)
+list_status_t list_remove_element(list_t list, void *element)
 {
   int hit;
 
@@ -415,7 +416,7 @@ int list_remove_element(list_t list, void *element)
 }
 
 
-int list_traverse(list_t list, void *data, list_traverse_func_t func, int opts)
+list_status_t list_traverse(list_t list, void *data, list_traverse_func_t func, int opts)
 {
    list_element_t lp;
    int status, rc;

@@ -52,8 +52,6 @@
  *       char *data;
  */
 
-static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C. Spatz";
-
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -62,6 +60,10 @@ static char brag[] = "$$Version: " PACKAGE_STRING " Copyright (C) 1992 Bradley C
 
 #include "list.h"
 #include "list_private.h"
+
+const char *list_brag = PACKAGE_STRING "\n\
+Copyright (C) 1992 Bradley C. Spatz\n\
+Maintained by Nathan Phillip Brink <binki@ohnopub.net> 2010\n";
 
 list_t list_init()
 {

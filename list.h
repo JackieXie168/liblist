@@ -27,6 +27,11 @@
 #include <list_namespace.h>
 #include <stddef.h>
 
+/**
+ * A string containing the version and authors of liblist.
+ */
+extern const char *list_brag;
+
 /* Define a structure to describe the list. */
 struct list;
 typedef struct list *list_t;

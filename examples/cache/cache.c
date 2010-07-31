@@ -21,14 +21,14 @@
  *
  * We define the following routines here:
  *
- *    CACHE *cache_init(max_elements)
+ *    cache_t cache_init(max_elements)
  *    char *cache_enter(cache, data, bytes, removed)
  *    char *cache_check(cache, data, match)
  *    void cache_free(cache, dealloc)
  *
  * for
  *
- *    CACHE *cache;
+ *    cache_t cache;
  *    char *data;
  *    int max_elements, max_size, bytes;
  *    char **removed;
@@ -56,14 +56,19 @@ static char brag[] = "$$Version: cache " PACKAGE_VERSION " Copyright (C) 1992 Br
 #include <stdlib.h>
 #include "cache.h"
 
-CACHE *cache_init(int max_elements)
+struct cache {
+   int max_elements;
+   LIST *list;
+};
+
+cache_t cache_init(int max_elements)
 {
-   CACHE *new_cache;
+   cache_t new_cache;
 
    /* Allocate, initialize, and return a new cache.   Return NULL if
     * the malloc or list initialization fails.
     */
-   if ((new_cache = (CACHE *) malloc(sizeof(CACHE))) == NULL) {
+   if ((new_cache = (cache_t) malloc(sizeof(struct cache))) == NULL) {
       return(NULL);
    }
    new_cache->max_elements = max_elements;
@@ -77,7 +82,7 @@ CACHE *cache_init(int max_elements)
 }
 
 
-void *cache_enter(CACHE *cache, void *data, int bytes, void **removed)
+void *cache_enter(cache_t cache, void *data, int bytes, void **removed)
 {
    char *new_element;
 
@@ -101,7 +106,7 @@ void *cache_enter(CACHE *cache, void *data, int bytes, void **removed)
 }
 
 
-void *cache_check(CACHE *cache, void *data, cache_match_func_t match)
+void *cache_check(cache_t cache, void *data, cache_match_func_t match)
 {
    char *found;
 
@@ -138,7 +143,7 @@ void *cache_check(CACHE *cache, void *data, cache_match_func_t match)
 }
 
 
-void cache_free(CACHE *cache, cache_dealloc_func_t dealloc)
+void cache_free(cache_t cache, cache_dealloc_func_t dealloc)
 {
    /* First free up the list, and then the cache descriptor. */
    list_free(cache->list, dealloc);

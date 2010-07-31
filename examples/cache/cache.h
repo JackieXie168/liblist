@@ -24,19 +24,19 @@
 
 #include <list.h>
 
-typedef struct cache_t {
-   int max_elements;
-   LIST *list;
-} CACHE;
+struct cache;
+typedef struct cache *cache_t;
+/* backwards compat */
+#define CACHE struct cache;
 
 typedef list_traverse_func_t cache_match_func_t;
 typedef list_dealloc_func_t cache_dealloc_func_t;
 
 /* Provide some useful prototypes. */
-CACHE *cache_init(int max_size);
-void *cache_enter(CACHE *cache, void *data, int bytes, void **removed);
-void *cache_check(CACHE *cache, void *data, cache_match_func_t match);
-void cache_free(CACHE *cache, cache_dealloc_func_t dealloc);
+cache_t cache_init(int max_size);
+void *cache_enter(cache_t cache, void *data, int bytes, void **removed);
+void *cache_check(cache_t cache, void *data, cache_match_func_t match);
+void cache_free(cache_t cache, cache_dealloc_func_t dealloc);
 
 /* Define the deallocation constants. */
 #define CACHE_DEALLOC   LIST_DEALLOC

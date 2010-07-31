@@ -63,10 +63,7 @@ int list_size(LIST *list);
 int list_empty(LIST *list);
 .PP
 .ft B
-typedef enum list_traverse_return list_traverse_return_t;
-.PP
-.ft B
-typedef list_traverse_return_t (*list_traverse_func_t)(void *data, void *node_data);
+typedef int (*list_traverse_func_t)(void *data, void *node_data);
 .PP
 .ft B
 int list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
@@ -145,9 +142,9 @@ returns the size (or number of elements) of
 as an integer. \c
 .PP
 .IR list_empty
-returns 1 if
+returns 1 (TRUE) if
 .IR list
-is empty, 0 otherwise. \c
+is empty, 0 (FALSE) otherwise. \c
 .PP
 .IR list_traverse
 traverses
@@ -158,7 +155,7 @@ calling
 .IR func
 at each element encountered in the traversal, until
 .IR func
-returns 0 or the extent of the list is reached.  This routine
+returns 0 (FALSE) or the extent of the list is reached.  This routine
 can be used to search for an item or print the contents of the list,
 for example.  See the section LIST TRAVERSAL for more information.
 .PP
@@ -194,7 +191,7 @@ should be declared as follows:
 int func(void *data, void *curr);
 .RE
 .PP
-and should return LIST_TRAVERSE_CONTINUE if the traversal should continue, or LIST_TRAVERSE_STOP
+and should return 1 (TRUE) if the traversal should continue, or 0 (FALSE)
 if the traversal should terminate.  The function does not need to check
 if the extent of the list has been reached; the return code from
 .IR list_traverse
@@ -227,14 +224,14 @@ struct mystruct
 int func(void *data, struct mystruct *curr)
 {
     printf("Name=%30s.\\n", curr->name);
-    return LIST_TRAVERSE_CONTINUE;
+    return TRUE;
 }
 .fi
 .RE
 .PP
 In this example, the parameter
 .IR data
-is ignored and the function unconditionally returns LIST_TRAVERSE_CONTINUE, but functions
+is ignored and the function unconditionally returns 1 (TRUE), but functions
 like
 .PP
 .RS
@@ -242,44 +239,15 @@ like
 int func(void *data, void *curr)
 {
     if (strcmp(data, curr))
-       return LIST_TRAVERSE_CONTINUE;
+       return TRUE;
     else
-       return LIST_TRAVERSE_STOP;
+       return FALSE;
 }
 .fi
 .RE
 .PP
 can be used to position the current element pointer prior to insertion, so
-as to keep the list ordered.
-.PP
-Starting with liblist-2.4, you may use the return value of your
-.IR list_traverse_func_t
-(func) to delete entries from the list. You should never call
-.IR list_delete
-on a the list item that is being visited from your
-.IR list_traverse_func_t
-(func) function. Instead, return LIST_TRAVERSE_DELETE or LIST_TRAVERSE_DELETE_FREE.
-You must manually free the data of a list item if you are managing
-the memory for that item yourself: in this case, use LIST_TRAVERSE_DELETE.
-If you asked liblist to manage the memory for your item, use
-LIST_TRAVERSE_DELETE_FREE so that the memory freeing routine
-associated with LIST_DEALLOC is used. The following is an example
-callback that uses this to remove entries from a list:
-.PP
-.RS
-.nf
-int func(struct func_data *data, struct item *curr)
-{
-  if (curr->old)
-    {
-      myitem_free(curr);
-      return LIST_TRAVERSE_DELETE;
-    }
-  else
-    return LIST_TRAVERSE_CONTINUE;
-}
-.fi
-.RE
+as to keep the list ordered.  
 .PP
 The direction and scope of the traversal can be controlled by specifying
 one or more of the following options:
@@ -327,14 +295,7 @@ It should be noted that
 should not invoke any of the list routines unless LIST_ALTR has been
 specified, since many of the routines act relative to the current
 element pointer, which is not modified during a traversal with
-LIST_SAVE specified. Also, neither
-.IR list_remove_curr
-,
-.IR list_remove_front
-, or 
-.IR list_remove_rear
-should be called from within a traversal. Use the return values
-LIST_TRAVERSE_REMOVE or LIST_TRAVERSE_REMOVE_FREE instead.
+LIST_SAVE specified.
 .SH MEMORY ALLOCATION
 The routines
 .IR list_init ,
@@ -363,7 +324,7 @@ data from the list, and thus return a pointer to data that was previously
 allocated by the package.  It is the programmers responsibility to deallocate
 such removed data.
 
-If the user has been responsible for data element storage allocation, i.e. the
+If the user has been responsile for data element storage allocation, i.e. the
 insert routines have been called with
 .IR bytes
 equal to 0, then the user must be responsible for storage deallocation

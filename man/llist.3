@@ -255,7 +255,7 @@ as to keep the list ordered.
 Starting with liblist-2.4, you may use the return value of your
 .IR list_traverse_func_t
 (func) to delete entries from the list. You should never call
-.IR list_remove_curr
+.IR list_delete
 on a the list item that is being visited from your
 .IR list_traverse_func_t
 (func) function. Instead, return LIST_TRAVERSE_DELETE or LIST_TRAVERSE_DELETE_FREE.

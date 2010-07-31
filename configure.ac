@@ -20,13 +20,6 @@ AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])
 AM_PROG_CC_C_O
 LT_INIT
 
-AC_ARG_ENABLE([debug],
-	[AS_HELP_STRING([--enable-debug], [Enable debugging codepaths (a.k.a., #undef NDEBUG)])],
-	[enable_debug=$enableval],
-	[enable_debug=no])
-AS_IF([test "$enable_debug" != yes],
-	[AC_DEFINE([NDEBUG], [], [Disable debugging codepaths])])
-
 AC_ARG_ENABLE([examples],
 	[AS_HELP_STRING([--enable-examples], [attempt to compile and install examples])],
 	[enable_examples=$enableval],

@@ -40,9 +40,10 @@
  *
  * \section api API
  *
- * liblist's public API is defined in list.h. A list handle is
- * represented by the list_t typedef. This is initialized with
- * list_init() and freed with list_free().
+ * liblist's public API is defined in list.h and \ref
+ * list_traversal. A list handle is represented by the list_t
+ * typedef. This is initialized with list_init() and freed with
+ * list_free().
  *
  * A list handle has a front, rear, and current element. The current
  * element may be accessed with list_curr() and the other elements
@@ -74,6 +75,7 @@
  * \file
  *
  * \brief Generic list operations.
+ * \sa list_traversal
  */
 
 #include <list_namespace.h>
@@ -141,6 +143,7 @@ struct list_element;
 #define LIST struct list
 
 /**
+ * \ingroup list_traversal
  * \brief A function prototype for the callback passed to list_traverse().
  *
  * \param data The same pointer passed to list_traverse() to provide a

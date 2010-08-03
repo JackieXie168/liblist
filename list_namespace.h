@@ -22,11 +22,13 @@
 #ifndef _LIBLIST_LIST_NAMESPACE_H
 #define _LIBLIST_LIST_NAMESPACE_H
 
-/*
-  rename all of the functions/symbols declared in list.h to avoid symbol
-  collisions. Most notable is libmysqlclient.so which exports list_free().
-  These #define-s are here to allow list.h to become more clear/concise.
-  Ideally, the list.h should be usable as an API reference.
+/**
+ *  \file
+ * Rename all of the functions/symbols declared in list.h to avoid
+ * symbol collisions. Most notable is libmysqlclient.so which exports
+ * list_free().  These \#define-s are here to allow list.h to become
+ * more clear/concise.  Ideally, the list.h should be usable as an API
+ * reference.
  */
 
 #define list_brag liblist_list_brag

@@ -26,6 +26,13 @@
 
 #include "list.h"
 
+struct list_element;
+/**
+ * \internal
+ * \brief Define a structure to describe each element in the list.
+ */
+typedef struct list_element *list_element_t;
+
 struct list
 {
   size_t size;
@@ -40,6 +47,7 @@ struct list_element
   list_element_t next;
   void *data;
 };
+
 
 
 #endif /* _LIBLIST_LIST_PRIVATE_H */

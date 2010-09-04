@@ -48,10 +48,10 @@ void *list_curr(list_t \fIlist\fB);
 void *list_rear(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_insert_before(list_t \fIlist\fB, void *\fIdata\fB, size_t \fIlen\fB);
+void *list_insert_before(list_t \fIlist\fB, void *\fIelement\fB, size_t \fIlen\fB);
 .PP
 .ft B
-void *list_insert_after(list_t \fIlist\fB, void *\fIdata\fB, size_t \fIlen\fB);
+void *list_insert_after(list_t \fIlist\fB, void *\fIelement\fB, size_t \fIlen\fB);
 .PP
 .ft B
 void *list_remove_front(list_t \fIlist\fB);
@@ -137,16 +137,16 @@ return pointers to the front, current, or rear element in
 and
 .IR list_insert_after
 insert an element, pointed to by
-.IR data
+.IR element
 and of size
 .IR len ,
 into
 .IR list ,
 either before or after the current element.  The newly inserted element is
 then considered the current element.  Both routines return a pointer to the
-newly inserted data.  If
+newly inserted element.  If
 .IR len
-is greater than 0, then data is copied into the list, otherwise
+is greater than 0, then element is copied into the list, otherwise
 only the reference
 .IR data
 is copied into the list.  This allows the user to determine the
@@ -158,7 +158,7 @@ and
 .IR list_remove_rear 
 remove the front, current, or rear element from
 .IR list 
-and return a pointer to the removed data.
+and return a pointer to the removed element.
 The current element is then set to the next element (prior to the remove) in
 the list, unless the element at the rear of the list was removed.  In this
 case, the current element is set to the previous element (prior to the
@@ -167,17 +167,17 @@ remove).
 .IR list_remove_element
 removes an element identified by the pointer
 .IR element
-from the list. This function is only useful if you are allocating data
-for each element yourself (i.e., you are setting len to 0 when calling
+from the list. This function is only useful if you are allocating
+each element yourself (i.e., you are setting len to 0 when calling
 .IR list_insert_before
 or
-.IR list_insert_after
-). This function will remove all instances of
-.IR element
-, at the expense of forcing a traversal of the whole list. If the end
+.IR list_insert_after ).
+This function will remove all instances of
+.IR element ,
+at the expense of forcing a traversal of the whole list. If the end
 of the list is reached without finding
-.IR element
-, LIST_EXTENT is returned. Otherwise, if one or more elements is
+.IR element ,
+LIST_EXTENT is returned. Otherwise, if one or more elements is
 successfully removed, LIST_OK is returned.
 .PP
 .IR list_size
@@ -229,7 +229,9 @@ traversal can be specified with the
 .IR opts
 parameter.
 .IR Func
-should be declared as follows:
+should be declared to match the
+.IR diff_traverse_func_t
+type:
 .PP
 .RS
 int func(void *data, void *element);
@@ -253,7 +255,7 @@ being the data pointer sent to
 .IR list_traverse
 originally, and
 .IR element
-being the data pointer of the current element in the traversal.  For example,
+being the current element in the traversal.  For example,
 by passing the following function to
 .IR list_traverse ,
 the contents of a list of names could be printed.
@@ -350,7 +352,7 @@ allocate memory during their execution.  As such,
 .IR list_insert_before
 and
 .IR list_insert_after
-insert a copy of the data into the list when they are invoked with
+insert a copy of the element into the list when they are invoked with
 .IR len
 greater than 0.  If
 .IR len
@@ -363,33 +365,34 @@ Note that
 .IR list_remove_curr ,
 and
 .IR list_remove_rear
-do not allocate memory for the removing data.  They simply disassociate the
-data from the list, and thus return a pointer to data that was previously
-allocated by the package.  It is the programmers responsibility to deallocate
-such removed data.
+do not deallocate memory for the removed element.  They simply disassociate the
+element from the list, and thus return a pointer to the element that was previously
+allocated by the package.  It is the programmer's responsibility to deallocate
+such a removed element.
 
-If the user has been responsile for data element storage allocation, i.e. the
+If the user has been responsible for element storage allocation, i.e. the
 insert routines have been called with
 .IR len
 equal to 0, then the user must be responsible for storage deallocation
 as well.  A user-supplied deallocation function should be passed to
 .IR list_free
-for this purpose.  The deallocation function should be declared as:
+for this purpose.  The deallocation function should be declared as the
+.IR list_dealloc_func_t
+typedef:
 .PP
 .RS
 void dealloc(void *data)
 .RE
 .PP
-and will be sent the data element reference of each element in the list
-when
+This function will be passed each element in the list when
 .IR list_free
-is invoked.  If the package has been responsible for data element allocation,
+is invoked.  If liblist has been responsible for data element allocation,
 .IR list_free
 can be invoked with LIST_DEALLOC for
 .IR dealloc,;
 the list package will apply its own deallocation routine, or
 LIST_NODEALLOC if no per-element deallocation is required.  It is the
-programmers responsibility to insure that the memory allocation
+programmer's responsibility to insure that the memory allocation
 policy is applied properly.
 .SH DIAGNOSTICS
 A NULL returned by

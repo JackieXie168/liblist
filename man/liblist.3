@@ -1,81 +1,89 @@
-.TH LIST 3  "September 22, 1991"
-.UC 6
+.TH LIST 3
 .SH NAME
-list_init, list_mvprev, list_mvnext, list_mvfront, list_mvrear, list_front, list_curr, list_rear, list_insert_before, list_insert_after, list_remove_front, list_remove_curr, list_remove_rear, list_size, list_empty, list_traverse, list_free \-- generic linked-list routines
+\fBlist_init\fP,
+\fBlist_mvprev\fP,
+\fBlist_mvnext\fP,
+\fBlist_mvfront\fP,
+\fBlist_mvrear\fP,
+\fBlist_front\fP,
+\fBlist_curr\fP,
+\fBlist_rear\fP,
+\fBlist_insert_before\fP,
+\fBlist_insert_after\fP,
+\fBlist_remove_front\fP,
+\fBlist_remove_curr\fP,
+\fBlist_remove_rear\fP,
+\fBlist_size\fP,
+\fBlist_empty\fP,
+\fBlist_traverse\fP,
+\fBlist_free\fP
+- generic doubly-linked-list routines
 .SH SYNOPSIS
-.PP
-cc [
-.I flags 
-]
-.IR files
-.B -llist 
-[ 
-.IR libraries
-]
-.nf
 .PP
 .ft B
 \fB#include <list.h>
 .PP
 .ft B
-LIST *list_init();
+list_t list_init();
 .PP
 .ft B
-LIST *list_mvprev(LIST *list);
+list_t list_mvprev(list_t \fIlist\fB);
 .PP
 .ft B
-LIST *list_mvnext(LIST *list);
+list_t list_mvnext(list_t \fIlist\fB);
 .PP
 .ft B
-LIST *list_mvfront(LIST *list);
+list_t list_mvfront(list_t \fIlist\fB);
 .PP
 .ft B
-LIST *list_mvrear(LIST *list);
+list_t list_mvrear(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_front(LIST *list);
+void *list_front(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_curr(LIST *list);
+void *list_curr(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_rear(LIST *list);
+void *list_rear(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_insert_before(LIST *list, void *data, size_t len);
+void *list_insert_before(list_t \fIlist\fB, void *\fIdata\fB, size_t \fIlen\fB);
 .PP
 .ft B
-void *list_insert_after(LIST *list, void *data, size_t len);
+void *list_insert_after(list_t \fIlist\fB, void *\fIdata\fB, size_t \fIlen\fB);
 .PP
 .ft B
-void *list_remove_front(LIST *list);
+void *list_remove_front(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_remove_curr(LIST *list);
+void *list_remove_curr(list_t \fIlist\fB);
 .PP
 .ft B
-void *list_remove_rear(LIST *list);
+void *list_remove_rear(list_t \fIlist\fB);
 .PP
 .ft B
-list_status_t list_remove_element(list_t list, void *element);
+list_status_t list_remove_element(list_t \fIlist\fB, void *\fIelement\fB);
 .PP
 .ft B
-size_t list_size(LIST *list);
+size_t list_size(list_t \fIlist\fB);
 .PP
 .ft B
-int list_empty(LIST *list);
+int list_empty(list_t \fIlist\fB);
 .PP
 .ft B
-typedef int (*list_traverse_func_t)(void *data, void *element);
+typedef int (*list_traverse_func_t)(void *\fIdata\fB, void *\fIelement\fB);
 .PP
 .ft B
-list_status_t list_traverse(LIST *list, void *data, list_traverse_func_t func, int opts);
+list_status_t list_traverse(list_t \fIlist\fB, void *\fIdata\fB, list_traverse_func_t \fIfunc\fB, int \fIopts\fB);
 .PP
 .ft B
-typedef void (*list_dealloc_func_t)(void *);
+typedef void (*list_dealloc_func_t)(void *\fIelement\fB);
 .PP
 .ft B
-void list_free(LIST *list, list_dealloc_func_t dealloc);
+void list_free(list_t \fIlist\fB, list_dealloc_func_t \fIdealloc\fB);
+.PP
+Link with \fI-llist\fP.
 .PP
 .SH DESCRIPTION
 These routines provide generic manipulation of (potentially)
@@ -83,11 +91,12 @@ multiple linked lists.  Each list can hold arbitrarily sized elements, with
 individual elements within a list varying in size.  It is the
 programmers responsibility to account for such differences.
 
-Lists are referred to by variables declared as LIST *; the type LIST
-is defined in <list.h> to be a C structure.  Each descriptor maintains
-references to the front, rear, and current elements, as well as the
-size (or length) of the list.  Various routines operate relative to the
-current element.
+Lists are referred to by variables declared as \fIlist_t\fP; the type \fIlist_t\fP
+is an opaque handle. Traditionally, \fILIST *\fP was used instead. \fILIST *\fP is
+still defined for API backwards-compatibility, but new code should use \fIlist_t\fP.
+Each descriptor maintains references to the front, rear, and current elements. It
+also holds the size (or length) of the list.  Various routines operate relative to
+the current element.
 .PP
 .IR list_t
 is list handle.

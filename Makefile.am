@@ -12,9 +12,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-dist_man3_MANS = man/llist.3 \
-	man/lqueue.3 \
-	man/lstack.3
+dist_man3_MANS = man/liblist.3 \
+	man/liblist_queue.3 \
+	man/liblist_stack.3
 include_HEADERS = list.h list_namespace.h queue.h stack.h
 lib_LTLIBRARIES = liblist.la
 

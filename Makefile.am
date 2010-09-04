@@ -14,7 +14,42 @@
 
 dist_man3_MANS = man/liblist.3 \
 	man/liblist_queue.3 \
-	man/liblist_stack.3
+	man/liblist_stack.3 \
+	\
+	man/list_init.3 \
+	man/list_mvprev.3 \
+	man/list_mvnext.3 \
+	man/list_mvfront.3 \
+	man/list_mvrear.3 \
+	man/list_front.3 \
+	man/list_curr.3 \
+	man/list_rear.3 \
+	man/list_insert_before.3 \
+	man/list_insert_after.3 \
+	man/list_remove_front.3 \
+	man/list_remove_curr.3 \
+	man/list_remove_rear.3 \
+	man/list_remove_element.3 \
+	man/list_size.3 \
+	man/list_empty.3 \
+	man/list_traverse.3 \
+	man/list_free.3 \
+	\
+	man/q_init.3 \
+	man/q_enqueue.3 \
+	man/q_dequeue.3 \
+	man/q_front.3 \
+	man/q_size.3 \
+	man/q_empty.3 \
+	man/q_free.3 \
+	\
+	man/stack_init.3 \
+	man/stack_push.3 \
+	man/stack_pop.3 \
+	man/stack_top.3 \
+	man/stack_size.3 \
+	man/stack_empty.3 \
+	man/stack_free.3
 include_HEADERS = list.h list_namespace.h queue.h stack.h
 lib_LTLIBRARIES = liblist.la
 

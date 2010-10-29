@@ -33,7 +33,7 @@
  * lists. The following are the basic and common arguments for the use
  * of any such library:
  *   - A client program needs not reimplement such a common algorithm.
- *   - Sharing well-tested and proven code eliminates one soruce of
+ *   - Sharing well-tested and proven code eliminates one source of
  *     failure or mistake-making.
  *   - Using an API's functions generally results in cleaner and clearer
  *     code than directly manipulating members of data structures.

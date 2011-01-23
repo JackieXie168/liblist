@@ -15,25 +15,25 @@
 .ft P
 .PP
 .ft B
-STACK *stack_init()
+lstack_t stack_init()
 .PP
 .ft B
-void *stack_push(STACK *\fIstack\fB, void *\fIdata\fB, int \fIlen\fB);
+void *stack_push(lstack_t \fIstack\fB, void *\fIdata\fB, int \fIlen\fB);
 .PP
 .ft B
-void *stack_pop(STACK *\fIstack\fB);
+void *stack_pop(lstack_t \fIstack\fB);
 .PP
 .ft B
-void *stack_top(STACK *\fIstack\fB);
+void *stack_top(lstack_t \fIstack\fB);
 .PP
 .ft B
-size_t stack_size(STACK *\fIstack\fB);
+size_t stack_size(lstack_t \fIstack\fB);
 .PP
 .ft B
-int stack_empty(STACK *\fIstack\fB);
+int stack_empty(lstack_t \fIstack\fB);
 .PP
 .ft B
-void stack_free(STACK *\fIstack\fB, list_dealloc_func_t \fIdealloc\fB);
+void stack_free(lstack_t \fIstack\fB, list_dealloc_func_t \fIdealloc\fB);
 .PP
 Link with \fI-llist\fP.\fR
 .PP
@@ -43,9 +43,9 @@ multiple stacks.  Each stack can hold arbitrarily sized elements, with
 individual elements within a stack varying in size.  It is the
 programmer's responsibility to account for such differences.
 
-Stacks are referred to by variables declared as \fIstack_t\fP; the
-type \fIstack_t\fP is an opaque handle. Traditionally, \fISTACK *\fP
-was used instead but new code should use \fIstack_t\fP.
+Stacks are referred to by variables declared as \fIlstack_t\fP; the
+type \fIlstack_t\fP is an opaque handle. Traditionally, \fISTACK *\fP
+was used instead but new code should use \fIlstack_t\fP.
 
 These routines are based upon the liblist(3) library.  Although this list-based
 implementation requires minimal additional space overhead versus a dedicated

@@ -33,7 +33,7 @@
 /**
  * \deprecated A stack handle.
  */
-#define stack_t list_t
+#define lstack_t list_t
 
 /* Backwards compatibility */
 /**

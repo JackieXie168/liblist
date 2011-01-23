@@ -178,7 +178,7 @@ int check_stack()
 
   if(stack_size(stack) != counter)
     {
-      fprintf(stderr, "stack size is %d, expected %zu\n", stack_size(stack), counter);
+      fprintf(stderr, "stack size is %zu, expected %zu\n", stack_size(stack), counter);
       return 4;
     }
 
@@ -204,7 +204,7 @@ int check_stack()
 
   if(stack_size(stack) != 0)
     {
-      fprintf(stderr, "stack is empty but has a size of %d\n", stack_size(stack));
+      fprintf(stderr, "stack is empty but has a size of %zu\n", stack_size(stack));
       return 7;
     }
 

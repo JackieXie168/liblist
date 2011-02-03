@@ -60,7 +60,7 @@ lib_LTLIBRARIES += libcache.la
 endif
 
 liblist_la_SOURCES = list.c list_private.h
-liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 3:0:0
+liblist_la_LDFLAGS = $(AM_LDFLAGS) -version-info 3:0:0 -no-undefined -export-symbols-regex '^liblist_'
 
 libcache_la_SOURCES = examples/cache/cache.c
 libcache_la_LIBADD = liblist.la

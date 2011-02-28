@@ -72,10 +72,12 @@ list_t list_init()
 
    /* Allocate, initialize, and return a new list. */
    list = (list_t) malloc(sizeof(struct list));
+   if (list == NULL)
+      return(NULL);
    list->size = 0;
-   list->front = NULL;;
-   list->rear = NULL;;
-   list->curr = NULL;;
+   list->front = NULL;
+   list->rear = NULL;
+   list->curr = NULL;
    return(list);
 }
 
@@ -173,7 +175,8 @@ static list_element_t list_create_element(void *data, size_t len)
    if (len > 0) {
       new->data = (char *) malloc(len);
       if (new->data == NULL) {
-	 return(NULL);
+         free(new);
+         return(NULL);
       }
       (void) memcpy(new->data, data, len);
    }

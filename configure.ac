@@ -34,6 +34,9 @@ AC_ARG_ENABLE([docs],
 	[enable_docs=no])
 AM_CONDITIONAL([DOCS], [test "x$enable_docs" = "xyes"])
 
+dnl for test/libc_conflict.c
+AC_CHECK_HEADERS([arpa/inet.h inttypes.h stdint.h sys/signal.h sys/wait.h sys/_structs.h unistd.h])
+
 AC_CONFIG_FILES([Makefile
 	liblist.pc])
 AC_OUTPUT

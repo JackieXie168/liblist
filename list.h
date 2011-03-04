@@ -74,7 +74,8 @@
 /**
  * \file
  *
- * \brief Generic list operations.
+ * \brief
+ *   Generic list operations.
  * \sa list_traversal
  */
 
@@ -82,17 +83,20 @@
 #include <stddef.h>
 
 /**
- * \brief A string containing the version and authors of liblist.
+ * \brief
+ *   A string containing the version and authors of liblist.
  */
 extern const char *list_brag;
 
 /**
- * \brief Common return values for list_traverse() and list_remove_element().
+ * \brief
+ *   Common return values for list_traverse() and list_remove_element().
  */
 typedef enum list_status
   {
     /**
-     * \brief The list is empty.
+     * \brief
+     *   The list is empty.
      *
      * The usefulness of such a return value is arguable, as in many
      * circumstances one will not care about the difference between
@@ -104,7 +108,8 @@ typedef enum list_status
      */
     LIST_OK = 1,
     /**
-     * \brief The end of the list was reached.
+     * \brief
+     *   The end of the list was reached.
      *
      * For list_traverse(), this means that the traversal function
      * returned TRUE even though it was accessing the last element of
@@ -120,7 +125,8 @@ typedef enum list_status
 /* Define a structure to describe the list. */
 struct list;
 /**
- * \brief A list handle.
+ * \brief
+ *   A list handle.
  */
 typedef struct list *list_t;
 
@@ -144,7 +150,8 @@ struct list_element;
 
 /**
  * \ingroup list_traversal
- * \brief A function prototype for the callback passed to list_traverse().
+ * \brief
+ *   A function prototype for the callback passed to list_traverse().
  *
  * \param data The same pointer passed to list_traverse() to provide a
  *   traversal with context information.
@@ -155,7 +162,8 @@ struct list_element;
 typedef int (*list_traverse_func_t)(void *data, void *element);
 
 /**
- * \brief A function prototype for the callback passed to list_free().
+ * \brief
+ *   A function prototype for the callback passed to list_free().
  *
  * The purpose of this callback is to deallocate an element of the
  * list when list_free() is called. For this reason, it has the same
@@ -167,7 +175,8 @@ typedef int (*list_traverse_func_t)(void *data, void *element);
 typedef void (*list_dealloc_func_t)(void *element);
 
 /**
- * \brief A default element-freeing function for LIST_DEALLOC.
+ * \brief
+ *   A default element-freeing function for LIST_DEALLOC.
  *
  * This essentially wraps around free().  You should use this to free
  * any memory allocated by passing a nonzero len to
@@ -181,14 +190,16 @@ void list_free_free(void *element);
 /* Prototype ahoy! */
 
 /**
- * \brief Allocate an initialize a new list_t handle.
+ * \brief
+ *   Allocate an initialize a new list_t handle.
  *
  * Produces an empty doubly-linked list.
  */
 list_t list_init();
 
 /**
- * \brief Move the list's current element backward (towards the list's front).
+ * \brief
+ *   Move the list's current element backward (towards the list's front).
  *
  * \param list The list.
  * \return The list handle or NULL if there was an attempt to move
@@ -197,7 +208,8 @@ list_t list_init();
 list_t list_mvprev(list_t list);
 
 /**
- * \brief Move the current element forward (towards the list's rear).
+ * \brief
+ *   Move the current element forward (towards the list's rear).
  * \param list The list.
  * \return The list handle or NULL if there was an attempt to move
  *   beyond the rear of the list.
@@ -205,8 +217,9 @@ list_t list_mvprev(list_t list);
 list_t list_mvnext(list_t list);
 
 /**
- * \brief Insert an item into the list positioned before the current
- * element.
+ * \brief
+ *   Insert an item into the list positioned before the current
+ *   element.
  *
  * After the insertion, the list's current element is set to the newly
  * inserted element.
@@ -231,7 +244,8 @@ list_t list_mvnext(list_t list);
 void *list_insert_before(list_t list, void *element, size_t len);
 
 /**
- * \brief Insert an item into the list positioned after the current
+ * \brief
+ *   Insert an item into the list positioned after the current
  *   element.
  *
  * After adding an item, the list's current element is set to the new
@@ -254,7 +268,8 @@ void *list_insert_before(list_t list, void *element, size_t len);
 void *list_insert_after(list_t list, void *element, size_t len);
 
 /**
- * \brief Remove and return the front element of a list.
+ * \brief
+ *   Remove and return the front element of a list.
  *
  * \param list The list whose front element should be removed.
  * \return The removed element or NULL if the list is empty.
@@ -262,7 +277,8 @@ void *list_insert_after(list_t list, void *element, size_t len);
 void *list_remove_front(list_t list);
 
 /**
- * \brief Remove and return the curent element of a list.
+ * \brief
+ *   Remove and return the curent element of a list.
  *
  * \param list The list.
  * \return The removed element or NULL if the list is empty.
@@ -270,7 +286,8 @@ void *list_remove_front(list_t list);
 void *list_remove_rear(list_t list);
 
 /**
- * \brief Remove and return the rear element of a list.
+ * \brief
+ *   Remove and return the rear element of a list.
  *
  * \param list The list.
  * \return The removed element or NULL if the list is empty.
@@ -278,7 +295,8 @@ void *list_remove_rear(list_t list);
 void *list_remove_curr(list_t list);
 
 /**
- * \brief Convenience function to remove an element from a list if its
+ * \brief
+ *   Convenience function to remove an element from a list if its
  *   pointer is known.
  *
  * This is only to be useful when the second argument to
@@ -296,14 +314,16 @@ void *list_remove_curr(list_t list);
 list_status_t list_remove_element(list_t list, void *element);
 
 /**
- * \brief Deallocate a list element pointer.
+ * \brief
+ *   Deallocate a list element pointer.
  *
  * Only to be used as an argument for list_free().
  *
  * \sa list_free()
  */
 /**
- * \brief Indicates that list_free() should deallocate memory that was
+ * \brief
+ *   Indicates that list_free() should deallocate memory that was
  *   allocated by liblist.
  *
  * This undoes the allocation performed when passing a nonzero len to
@@ -316,14 +336,16 @@ list_status_t list_remove_element(list_t list, void *element);
  */
 #define LIST_DEALLOC   (&list_free_free)
 /**
- * \brief A no-op second argument for list_free() that causes
+ * \brief
+ *   A no-op second argument for list_free() that causes
  *   list_free() to not do anything with each element as it's removed
  *   from the list before deallocating the list.
  */
 #define LIST_NODEALLOC (list_dealloc_func_t)NULL
 
 /**
- * \brief Deallocate all members of a list and free the list's handle.
+ * \brief
+ *   Deallocate all members of a list and free the list's handle.
  *
  * Before the list handle itself is deallocated, each member of the
  * list is removed from the list. In most cases, the memory associated
@@ -355,28 +377,32 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 
 /**
  * \ingroup list_traversal
- * \brief The traversal should move forward.
+ * \brief
+ *   The traversal should move forward.
  *
  * The traversal should move towards the list's rear element.
  */
 #define LIST_FORW	0
 /**
  * \ingroup list_traversal
- * \brief The traversal should move backwards.
+ * \brief
+ *   The traversal should move backwards.
  *
  * The traversal should move towards the list's front element.
  */
 #define LIST_BACK	2
 /**
  * \ingroup list_traversal
- * \brief The traversal should begin at the front of the list.
+ * \brief
+ *   The traversal should begin at the front of the list.
  *
  * Implies LIST_FORW.
  */
 #define LIST_FRNT	4
 /**
  * \ingroup list_traversal
- * \brief The traversal should begin as the list's current element.
+ * \brief
+ *   The traversal should begin as the list's current element.
  *
  * Use this if you want to resume an interrupted list traversal or
  * start a traversal at an arbitrary point withing a list.
@@ -384,7 +410,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 #define LIST_CURR	8
 /**
  * \ingroup list_traversal
- * \brief The traversal should begin at the list's rear element.
+ * \brief
+ *   The traversal should begin at the list's rear element.
  *
  * Implies LIST_BACK, since a traversal starting at the end of a list
  * would be otherwise pointless.
@@ -392,7 +419,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 #define LIST_REAR	(16 | LIST_BACK)
 /**
  * \ingroup list_traversal
- * \brief The traversal should not update the list's current element.
+ * \brief
+ *   The traversal should not update the list's current element.
  *
  * Use this if you want the list's current element to remain untouched
  * during a traversal. This is useful if you depend on the
@@ -402,7 +430,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 #define LIST_SAVE	32
 /**
  * \ingroup list_traversal
- * \brief The traversal should update the list's current element.
+ * \brief
+ *   The traversal should update the list's current element.
  *
  * Use this if you want to search through the list for a particular
  * element using a traversal and then want to operate on this element
@@ -424,7 +453,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 #ifndef TRUE
 /**
  * \ingroup list_traversal
- * \brief Indicate that a traversal should continue.
+ * \brief
+ *   Indicate that a traversal should continue.
  *
  * If a list traversal function returns this, list_traverse() will try
  * to continue on to the next (for LIST_FORW) or previous (for
@@ -437,7 +467,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 #ifndef FALSE
 /**
  * \ingroup list_traversal
- * \brief Indicate that a traversal should stop.
+ * \brief
+ *   Indicate that a traversal should stop.
  *
  * If a list traversal function returns this, list_traverse() will
  * terminate the traversal and return LIST_OK.
@@ -450,7 +481,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 /* Yet more prototypes. */
 
 /**
- * \brief Retrieve the element at the front of a list.
+ * \brief
+ *   Retrieve the element at the front of a list.
  *
  * \param list The list.
  * \return The element at the front of list or NULL if the list is empty.
@@ -458,7 +490,8 @@ void list_free(list_t list, list_dealloc_func_t dealloc_func);
 void *list_front(list_t list);
 
 /**
- * \brief Retrieve the list's current element.
+ * \brief
+ *   Retrieve the list's current element.
  *
  * \param list The list.
  * \return The list's current element or NULL if the list is empty.
@@ -466,7 +499,8 @@ void *list_front(list_t list);
 void *list_curr(list_t list);
 
 /**
- * \brief Retrieve the element at the rear of a list.
+ * \brief
+ *   Retrieve the element at the rear of a list.
  *
  * \param list The list.
  * \return The list's rear element or NULL if the list is empty.
@@ -474,7 +508,8 @@ void *list_curr(list_t list);
 void *list_rear(list_t list);
 
 /**
- * \brief Set the list's current element to the front of the list.
+ * \brief
+ *   Set the list's current element to the front of the list.
  *
  * \param list The list.
  * \return The same list passed in (even if the list is empty, this
@@ -483,7 +518,8 @@ void *list_rear(list_t list);
 list_t list_mvfront(list_t list);
 
 /**
- * \brief Set the list's current element to the rear of the list.
+ * \brief
+ *   Set the list's current element to the rear of the list.
  *
  * \param list The list.
  * \return The same list passed in.
@@ -491,7 +527,8 @@ list_t list_mvfront(list_t list);
 list_t list_mvrear(list_t list);
 
 /**
- * \brief Check if the list is empty
+ * \brief
+ *   Check if the list is empty
  *
  * If this function returns 1, then list_size() would return 0.
  *
@@ -501,7 +538,8 @@ list_t list_mvrear(list_t list);
 int list_empty(list_t);
 
 /**
- * \brief Retrieve the number of elements in the list.
+ * \brief
+ *   Retrieve the number of elements in the list.
  *
  * If this function returns 0, then list_empty() would return 1.
  *
@@ -511,7 +549,8 @@ size_t list_size(list_t);
 
 /**
  * \ingroup list_traversal
- * \brief Traverse a list and apply func to all or some of the list's
+ * \brief
+ *   Traverse a list and apply func to all or some of the list's
  *   elements.
  *
  * \par Traversal Behavior

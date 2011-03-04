@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([liblist], [2.3.1], [https://ohnopublishing.net/bugzilla/enter_bug.cgi?product=liblist], [liblist], [http://ohnopub.net/liblist])
+AC_INIT([liblist], [2.4], [https://ohnopublishing.net/bugzilla/enter_bug.cgi?product=liblist], [liblist], [http://ohnopub.net/liblist])
 AC_CONFIG_SRCDIR([list.c])
 
 AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])

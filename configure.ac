@@ -18,7 +18,7 @@ AC_CONFIG_SRCDIR([list.c])
 AM_INIT_AUTOMAKE([dist-bzip2 parallel-tests subdir-objects])
 
 AM_PROG_CC_C_O
-LT_INIT
+LT_INIT([win32-dll])
 
 AC_TYPE_INTPTR_T
 

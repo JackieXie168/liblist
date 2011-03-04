@@ -46,11 +46,8 @@
  *    list_t list;
  *    void *element;
  *    size_t len;
- *    int func(data, curr)
- *       void *data;
- *       void *curr;
- *    void dealloc(data)
- *       void *data;
+ *    int func(void *data, void *curr)
+ *    void dealloc(void *data)
  */
 
 #include <stddef.h>

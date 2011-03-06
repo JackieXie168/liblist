@@ -1,0 +1,25 @@
+This work was packaged for Debian by:
+
+    Nathan Phillip Brink <ohnobinki@ohnopublishing.net> on Mon, 07 Feb 2011 19:35:13 -0500
+
+It was downloaded from <url://example.com>
+
+Upstream Author(s):
+
+    Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
+    Bradley C. Spatz <bcs@ufl.edu>
+
+Copyright:
+
+    Copyright (C) 1992, Bradley C. Spatz <bcs@ufl.edu>
+    Copyright (C) 2011, Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
+
+License:
+
+    GNU GPL-2+
+
+The Debian packaging is:
+
+    Copyright (C) 2011 Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
+    and is licensed under the GPL version 3, 
+    see `/usr/share/common-licenses/GPL-3'.

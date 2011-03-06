@@ -1,0 +1,5 @@
+liblist (2.4) lucid; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Nathan Phillip Brink <ohnobinki@ohnopublishing.net>  Sat, 05 Mar 2011 22:14:13 -0500

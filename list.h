@@ -50,7 +50,7 @@
  * would be access with similarly named functions. Inserting new
  * elements into the list causes the current element to refer to the
  * newly inserted element. The current element pointer may also be
- * changed with list_mvnext(), list_mvprev(), list_mvfirst(), and
+ * changed with list_mvnext(), list_mvprev(), list_mvfront(), and
  * list_mvrear().
  *
  * When updating or accessing a list, often operations are performed
